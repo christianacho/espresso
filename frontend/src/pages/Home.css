@@ -1,0 +1,32 @@
+.home-container {
+    /* padding: 16px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-title {
+    font-family: monospace;
+    font-size: 40px;
+    margin: 0;
+    text-align: center;
+}
+
+.home-cursor {
+    transition: opacity 0.2s;
+}
+
+.home-hook {
+    font-family: monospace;
+    font-size: 20px;
+    margin-top: 6px;
+    margin-bottom: 0;
+    opacity: 0;
+    transition: opacity 2s;
+    text-align: center;
+}
+
+.home-hook.visible {
+    opacity: 1;
+}
