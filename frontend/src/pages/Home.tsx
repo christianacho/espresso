@@ -6,7 +6,7 @@ export default function Home() {
   const hook = "brew structure, sip freedom";
   const [displayed, setDisplayed] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const [cursorActive, setCursorActive] = useState(true);
+  const cursorActive = true;
   const [showHook, setShowHook] = useState(false);
 
   useEffect(() => {
@@ -16,15 +16,13 @@ export default function Home() {
       }, 200);
       return () => clearTimeout(timeout);
     } else {
-      setCursorActive(false);
-      setShowCursor(false);
       const hookTimeout = setTimeout(() => setShowHook(true), 400);
       return () => clearTimeout(hookTimeout);
     }
   }, [displayed, name]);
 
   useEffect(() => {
-    if (!cursorActive) return;
+    if (!showCursor) return;
     const cursorInterval = setInterval(() => {
       setShowCursor((c) => !c);
     }, 500);
@@ -32,6 +30,7 @@ export default function Home() {
   }, [cursorActive]);
 
   return (
+  <>
     <div className="home-container">
       <h1 className="home-title">
         {displayed}
@@ -44,5 +43,10 @@ export default function Home() {
         {hook}
       </h2>
     </div>
-  );
+    <div className="home-section">
+      <h3>Welcome to the next section!</h3>
+      <p>This area has a different background color.</p>
+    </div>
+  </>
+);
 }
