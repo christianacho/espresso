@@ -71,6 +71,40 @@ body {
     background-size: 200% 200%;
     animation: gradientAnimation1 8s ease infinite;
     color: #333333;
+    position: relative;
+    height: 100vh;
+}
+
+header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.login-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.login-button {
+    background: linear-gradient(90deg, #cea984, #875709, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 1px solid #875709;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-decoration: none;
+    /* transition: background 0.2s ease; */
+}
+
+.login-button:hover {
+    cursor: pointer;
+    border: 1px solid #875709;
+    opacity: 0.7;
+    /* background: rgba(255, 255, 255, 0.1); */
 }
 
 .second-section {

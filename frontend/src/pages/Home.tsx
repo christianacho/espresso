@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../style/Home.css';
 
 export default function Home() {
@@ -64,7 +65,13 @@ export default function Home() {
 
     return (
     <div className="page-wrapper">
+
         <div className="page-section home-container">
+            <div className="login-link">
+                <Link to="/login">
+                <button className="login-button">Login</button> 
+                </Link>
+            </div>
         <h1 className="home-title">
             {displayed}
             <span
