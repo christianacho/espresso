@@ -112,6 +112,25 @@ header {
     color: #333333;
 }
 
+.third-section {
+    background: #b98e49;
+}
+
+.fourth-section {
+    background: #875709;
+    color: white;
+}
+
+.fifth-section {
+    background: #4a2e0f;
+    color: white;
+}
+
+.sixth-section {
+    background: #fff;
+    color: white;
+}
+
 .home-title {
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     font-size: 64px;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SidebarDots from './Sidebar';   
 import '../style/Home.css';
 
 export default function Home() {
@@ -65,8 +66,8 @@ export default function Home() {
 
     return (
     <div className="page-wrapper">
-
-        <div className="page-section home-container">
+        <SidebarDots />
+        <div className="page-section home-container" id="first-section">
             <div className="login-link">
                 <Link to="/login">
                 <button className="login-button">Login</button> 
@@ -105,6 +106,27 @@ export default function Home() {
         <h2>Welcome to brew.ai</h2>
         <p>Start your journey here</p>
         </div>
+        
+        <div className ="page-section third-section" id="third-section">
+            <h2>Third</h2>
+            <p>Sup</p>
+        </div>
+
+        <div className ="page-section fourth-section" id="fourth-section">
+            <h2>Third</h2>
+            <p>Sup</p>
+        </div>
+
+        <div className ="page-section fifth-section" id="fifth-section">
+            <h2>Third</h2>
+            <p>Sup</p>
+        </div>
+
+        <div className ="page-section sixth-section" id="sixth-section">
+            <h2>Third</h2>
+            <p>Sup</p>
+        </div>
+
     </div>
     );
     }
