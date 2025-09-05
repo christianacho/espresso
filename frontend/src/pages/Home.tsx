@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Home.css';
+import '../style/Home.css';
 
 export default function Home() {
     const name = "brew.ai";
@@ -79,19 +79,19 @@ export default function Home() {
             Brew uses AI to keep your schedule flowing, even when it overflows
         </p>
         <div
-  className={`scroll-arrow ${showArrow ? "visible" : "hidden"}`}
-  onClick={() => {
-    const section = document.getElementById("second-section");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }}
-  tabIndex={0}
-  role="button"
-  aria-label="Scroll to next section"
->
-  &#8595;
-</div>
+            className={`scroll-arrow ${showArrow ? "visible" : "hidden"}`}
+            onClick={() => {
+                const section = document.getElementById("second-section");
+                if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-label="Scroll to next section"
+            >
+            &#8595;
+        </div>
 
         </div>
         <div className="page-section second-section" id="second-section">
