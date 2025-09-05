@@ -129,3 +129,37 @@ body {
 .home-subtext.visible {
     opacity: 1;
 }
+
+.scroll-arrow {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #cea984, #875709, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.85;
+    animation: arrow-bounce 1.2s infinite;
+    pointer-events: auto;
+    z-index: 10;
+    user-select: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.scroll-arrow:hover {
+    cursor: pointer;
+}
+
+.scroll-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(12px); }
+}
+
