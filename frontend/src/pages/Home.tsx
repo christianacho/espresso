@@ -3,11 +3,16 @@ import './Home.css';
 
 export default function Home() {
   const name = "brew.ai";
-  const hook = "brew structure, sip freedom";
+  const hook = (
+    <>
+      brew structure, sip <span style={{ color: '#A67C52' }}>freedom</span>
+    </>
+  );
   const [displayed, setDisplayed] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const cursorActive = true;
   const [showHook, setShowHook] = useState(false);
+  const [showSubtext, setShowSubtext] = useState(false);
 
   useEffect(() => {
     if (displayed.length < name.length) {
@@ -17,7 +22,11 @@ export default function Home() {
       return () => clearTimeout(timeout);
     } else {
       const hookTimeout = setTimeout(() => setShowHook(true), 400);
-      return () => clearTimeout(hookTimeout);
+      const subtextTimeout = setTimeout(() => setShowSubtext(true), 2400);
+      return () => {
+        clearTimeout(hookTimeout);
+        clearTimeout(subtextTimeout);
+      };
     }
   }, [displayed, name]);
 
@@ -30,23 +39,26 @@ export default function Home() {
   }, [cursorActive]);
 
   return (
-  <>
-    <div className="home-container">
-      <h1 className="home-title">
-        {displayed}
-        <span
-          className="home-cursor"
-          style={{ opacity: showCursor ? 1 : 0 }}
-        >|</span>
-      </h1>
-      <h2 className={`home-hook${showHook ? " visible" : ""}`}>
-        {hook}
-      </h2>
+    <div className="page-wrapper">
+      <div className="page-section home-container">
+        <h1 className="home-title">
+          {displayed}
+          <span
+            className="home-cursor"
+            style={{ opacity: showCursor ? 1 : 0 }}
+          >|</span>
+        </h1>
+        <h2 className={`home-hook${showHook ? " visible" : ""}`}>
+          {hook}
+        </h2>
+        <p className={`home-subtext${showSubtext ? " visible" : ""}`}>
+          Brew uses AI to keep your schedule flowing, even when it overflows
+        </p>
+      </div>
+      <div className="page-section second-section">
+        <h2>Welcome to brew.ai</h2>
+        <p>Start your journey here</p>
+      </div>
     </div>
-    <div className="home-section">
-      <h3>Welcome to the next section!</h3>
-      <p>This area has a different background color.</p>
-    </div>
-  </>
-);
+  );
 }
