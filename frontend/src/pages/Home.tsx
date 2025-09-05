@@ -13,6 +13,7 @@ export default function Home() {
   const cursorActive = true;
   const [showHook, setShowHook] = useState(false);
   const [showSubtext, setShowSubtext] = useState(false);
+  const [showArrow, setShowArrow] = useState(true);
 
   useEffect(() => {
     if (displayed.length < name.length) {
@@ -38,6 +39,18 @@ export default function Home() {
     return () => clearInterval(cursorInterval);
   }, [cursorActive]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY >= window.innerHeight - 10) {
+        setShowArrow(false);
+      } else {
+        setShowArrow(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="page-wrapper">
       <div className="page-section home-container">
@@ -54,6 +67,11 @@ export default function Home() {
         <p className={`home-subtext${showSubtext ? " visible" : ""}`}>
           Brew uses AI to keep your schedule flowing, even when it overflows
         </p>
+        {showArrow && (
+          <div className="scroll-arrow">
+            &#8595;
+          </div>
+        )}
       </div>
       <div className="page-section second-section">
         <h2>Welcome to brew.ai</h2>
