@@ -1,66 +1,133 @@
-html, body {
-    height: 100%;
+html,
+body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    height: 100%;
+    /* Changed from min-height */
 }
 
-*, *::before, *::after {
+body {
+    background-color: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-
-body {
-    overflow-x: hidden;
+.page-wrapper {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.home-container {
-    /* min-height: 100vh; */
+.page-section {
     height: 100vh;
-    width: 100vw;
+    /* Changed from min-height */
+    width: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+@keyframes gradientAnimation1 {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes gradientAnimation2 {
+    0% {
+        background-position: 100% 50%
+    }
+
+    50% {
+        background-position: 0% 50%
+    }
+
+    100% {
+        background-position: 100% 50%
+    }
+}
+
+.home-container {
+    background: linear-gradient(135deg, #F5EDE3, #D4BCA3, #F5EDE3);
+    background-size: 200% 200%;
+    animation: gradientAnimation1 8s ease infinite;
+    color: #333333;
+}
+
+.second-section {
+    background: white;
+    color: #333333;
 }
 
 .home-title {
-    font-family: monospace;
-    font-size: 40px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 600;
     margin: 0;
     text-align: center;
+    line-height: 1.2;
 }
 
 .home-cursor {
     transition: opacity 0.2s;
-    font-size: 40px;
-    vertical-align: top;
+    font-size: 64px;
+    vertical-align: baseline;
     position: relative;
-    top: -6px;
+    top: -5px;
+    line-height: 1.2;
 }
 
 .home-hook {
-    font-family: monospace;
-    font-size: 24px;
-    margin-top: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 28px;
+    margin-top: 12px;
     margin-bottom: 0;
     opacity: 0;
     transition: opacity 2s;
     text-align: center;
+    max-width: 800px;
+    line-height: 1.4;
+    color: #4a4a4a;
 }
 
 .home-hook.visible {
     opacity: 1;
 }
 
-.home-section {
-    /* min-height: 100vh; */
-    height: 100vh;
-    width: 100vw;
-    background: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
+.home-subtext {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 35px;
+    font-weight: 750;
+    margin-top: 16px;
+    opacity: 0;
+    transition: opacity 2s;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.4;
+    color: #4a4a4a;
+}
+
+.home-subtext.visible {
+    opacity: 1;
 }
