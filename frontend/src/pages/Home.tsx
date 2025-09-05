@@ -22,7 +22,7 @@ export default function Home() {
       return () => clearTimeout(timeout);
     } else {
       const hookTimeout = setTimeout(() => setShowHook(true), 400);
-      const subtextTimeout = setTimeout(() => setShowSubtext(true), 2400);
+      const subtextTimeout = setTimeout(() => setShowSubtext(true), 1000);
       return () => {
         clearTimeout(hookTimeout);
         clearTimeout(subtextTimeout);
