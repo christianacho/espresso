@@ -1,21 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import type { ReactNode } from "react";
 import { Link } from 'react-router-dom';
 import SidebarDots from './Sidebar';   
 import '../style/Home.css';
 
+
+function FadeInSection({ children }: { children: ReactNode }) {
+    const [showHook, setShowHook] = useState(false);
+    const domRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const node = domRef.current;
+        if (!node) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => setShowHook(entry.isIntersecting));
+        });
+
+        observer.observe(node);
+        return () => observer.unobserve(node);
+    }, []);
+
+    return (
+    <div
+        className={`fade-in-section ${showHook ? "is-visible" : ""}`}
+        ref={domRef}
+    >
+        {children}
+    </div>
+    );
+}
+
 export default function Home() {
     const name = "brew.ai";
-    const hook = (
-    <>
-        brew structure, sip <span style={{ color: '#A67C52' }}>freedom</span>
-    </>
-    );
+    // const hook = (
+    // <>
+    //     brew structure, sip <span style={{ color: '#A67C52' }}>freedom</span>
+    // </>
+    // );
     const [displayed, setDisplayed] = useState("");
     const [showCursor, setShowCursor] = useState(true);
     const cursorActive = true;
-    const [showHook, setShowHook] = useState(false);
     const [showSubtext, setShowSubtext] = useState(false);
     const [showArrow, setShowArrow] = useState(true);
+
 
     useEffect(() => {
         if (displayed.length < name.length) {
@@ -23,12 +51,8 @@ export default function Home() {
             setDisplayed(name.slice(0, displayed.length + 1));}, 200);
             return () => clearTimeout(timeout);
         } else {
-            const hookTimeout = setTimeout(() => setShowHook(true), 400);
-            const subtextTimeout = setTimeout(() => setShowSubtext(true), 1000);
-            return () => {
-            clearTimeout(hookTimeout);
-            clearTimeout(subtextTimeout);
-            };
+            const subtextTimeout = setTimeout(() => setShowSubtext(true), 400);
+            return () => { clearTimeout(subtextTimeout); };
         }
         }, [displayed, name]);
 
@@ -50,8 +74,7 @@ export default function Home() {
                     setShowArrow(false);
                 } else {
                     setShowArrow(true);
-                }
-                });
+                }});
             },
             {
                 threshold: 0.1,
@@ -63,6 +86,7 @@ export default function Home() {
             observer.disconnect();
         };
     }, []);
+
 
     return (
     <div className="page-wrapper">
@@ -80,9 +104,6 @@ export default function Home() {
             style={{ opacity: showCursor ? 1 : 0 }}
             >|</span>
         </h1>
-        <h2 className={`home-hook${showHook ? " visible" : ""}`}>
-            {hook}
-        </h2>
         <p className={`home-subtext${showSubtext ? " visible" : ""}`}>
             Brew uses AI to keep your schedule flowing, even when it overflows
         </p>
@@ -103,14 +124,34 @@ export default function Home() {
 
         </div>
         <div className="page-section second-section" id="second-section">
-        <h2>Welcome to brew.ai</h2>
-        <p>Start your journey here</p>
+            <FadeInSection>
+            <h2 className="second-hook">
+                brew structure, sip <span style={{ color: "#A67C52" }}>freedom</span>
+            </h2>
+            </FadeInSection>
         </div>
-        
-        <div className ="page-section third-section" id="third-section">
-            <h2>Third</h2>
-            <p>Sup</p>
+
+
+        <div className="page-section third-section" id="third-section">
+            <div className="third-content">
+                <p className="third-intro">brew’s got your</p>
+
+                <h2 className="third-main">
+                    <span className="deadline-text">DEADLINES,</span>{" "}
+                    <span className="project-text">PROJECTS,</span><br />
+                    <span className="appointment-text">APPOINTMENTS</span>
+                </h2>
+
+                <p className="third-extra">and even</p>
+
+                <h2 className="third-casual">
+                    <span className="bills-text">BILLS,</span>{" "}
+                    <span className="groceries-text">GROCERIES,</span>{" "}<br/>
+                    <span className="birthdays-text">BIRTHDAYS</span>
+                </h2>
+            </div>
         </div>
+
 
         <div className ="page-section fourth-section" id="fourth-section">
             <h2>Third</h2>
@@ -129,4 +170,4 @@ export default function Home() {
 
     </div>
     );
-    }
+}
