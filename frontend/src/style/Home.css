@@ -1,4 +1,3 @@
-
 html,
 body {
     margin: 0;
@@ -70,7 +69,6 @@ header {
 .login-link {
     position: absolute;
     top: 20px;
-    border: none;
     right: 20px;
 }
 
@@ -92,56 +90,17 @@ header {
     opacity: 0.5;
 }
 
-.login-button:focus {
-    outline: none;
-    border: none;
-}
-
 .second-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
     display: flex;
-    flex-direction: row;
+    align-items: flex-start;
+    padding: 6.5vh;
+    transition: background 0.8s ease;
 }
 
 .second-hook {
-    font-size: 60px;
-    text-align: left;
-    /* width: 50%; */
-    margin: 0;
-    line-height: 1.1;
-}
-
-.second-desc {
-    font-size: 18px;
-    width: 90%;
-    text-align: left;
-    margin: 0.3;
-}
-
-.second-text {
-    padding: 20vh;
-}
-
-.second-image-container {
-    width: 150%;
-    margin: 5px;
-    padding-right: 80vh;
-}
-
-.second-image-container img {
-    width: 150%;
-    height: auto;
-    border-radius: 15px;
-}
-
-.hook-gradient {
-    background: linear-gradient(90deg, #A67C52, #ffcc88);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
+    font-size: 50px;
 }
 
 .third-section {
@@ -151,25 +110,131 @@ header {
     justify-content: center;
     min-height: 100vh;
     padding: 32px 2%;
-    transition: background-color 0.8s ease;
+    transition: background 0.8s ease;
 }
 
 .fourth-section {
     background: linear-gradient(180deg, #D4BCA3, #D4BCA3);
+    color: #333333;
+    transition: background 0.8s ease;
+    position: relative;
+    padding: 60px 40px 80px;
+}
+
+/* Features Section Styles */
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.feature-card {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+    text-align: left;
+    height: 100%;
+}
+
+.feature-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    background: linear-gradient(45deg, #cea984, #4F200D 10%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+    min-height: 76px;
+    /* Ensures consistent title height */
+}
+
+.feature-description {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
     color: white;
-    transition: background-color 0.8s ease;
+    margin: 0 0 30px 0;
+    line-height: 1.4;
+    opacity: 0.9;
+    min-height: 76px;
+    /* Ensures consistent description height */
+}
+
+.feature-visual {
+    width: 100%;
+    height: 200px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: end;
+}
+
+.motion-placeholder {
+    color: #666;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+.page-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 18px;
+    color: white;
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .features-container {
+        gap: 40px;
+        padding: 0 20px;
+    }
+
+    .feature-title {
+        font-size: 28px;
+    }
+
+    .feature-description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        max-width: 600px;
+    }
+
+    .fourth-section {
+        padding: 40px 20px 60px;
+    }
+
+    .feature-visual {
+        height: 150px;
+    }
 }
 
 .fifth-section {
     background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: white;
-    transition: background-color 0.8s ease;
+    transition: background 0.8s ease;
 }
 
 .sixth-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: white;
-    transition: background-color 0.8s ease;
+    transition: background 0.8s ease;
 }
 
 .home-title {

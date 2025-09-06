@@ -148,8 +148,8 @@ export default function Home() {
                         </h2>
 
                         <p className="second-desc">
-                            Brew is a smart scheduler that turns your brain-dump into a plan. 
-                            It uses AI to place tasks on your calendar based on time and difficulty, 
+                            Brew is a smart scheduler that turns your brain-dump into a plan.
+                            It uses AI to place tasks on your calendar based on time and difficulty,
                             then learns from your feedback to keep everything updated and stress-free.
                         </p>
                     </div>
@@ -183,8 +183,39 @@ export default function Home() {
             </div>
 
             <div className="page-section fourth-section" id="fourth-section">
-                <h2>Fourth</h2>
-                <p>Sup</p>
+                <FadeInSection>
+                    <div className="features-container">
+                        <div className="feature-card">
+                            <h3 className="feature-title">Focuses on What Matters</h3>
+                            <p className="feature-description">
+                                Brew ranks your tasks so you tackle the most important ones first
+                            </p>
+                            <div className="feature-visual">
+                                <div className="motion-placeholder">motion design</div>
+                            </div>
+                        </div>
+
+                        <div className="feature-card">
+                            <h3 className="feature-title">Captures<br /> Everything</h3>
+                            <p className="feature-description">
+                                Drop tasks, ideas, and errands in one place and watch Brew organize them
+                            </p>
+                            <div className="feature-visual">
+                                <div className="motion-placeholder">motion design</div>
+                            </div>
+                        </div>
+
+                        <div className="feature-card">
+                            <h3 className="feature-title">Adjusts on <br />Feedback</h3>
+                            <p className="feature-description">
+                                Brew reshuffles your schedule when tasks take longer or you fall behind
+                            </p>
+                            <div className="feature-visual">
+                                <div className="motion-placeholder">motion design</div>
+                            </div>
+                        </div>
+                    </div>
+                </FadeInSection>
             </div>
 
             <div className="page-section fifth-section" id="fifth-section">
