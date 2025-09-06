@@ -146,25 +146,25 @@ header {
     justify-content: center;
     min-height: 100vh;
     padding: 32px 2%;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .fourth-section {
     background: linear-gradient(180deg, #D4BCA3, #D4BCA3);
     color: white;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .fifth-section {
     background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: white;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .sixth-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: white;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .home-title {
