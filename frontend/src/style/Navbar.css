@@ -1,0 +1,41 @@
+.navbar {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    color: white;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 48px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links a {
+    background: linear-gradient(90deg, #cea984, #875709, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding: 8px 16px;
+    border: none;
+    font-size: 16px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-links a:hover {
+    cursor: pointer;
+    border: none;
+    opacity: 0.5;
+}
+
+.navbar-links:focus {
+    outline: none;
+    border: none;
+}
