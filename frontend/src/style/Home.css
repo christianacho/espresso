@@ -70,6 +70,7 @@ header {
 .login-link {
     position: absolute;
     top: 20px;
+    border: none;
     right: 20px;
 }
 
@@ -91,6 +92,10 @@ header {
     opacity: 0.5;
 }
 
+.login-button:focus {
+    outline: none;
+    border: none;
+}
 
 .second-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
