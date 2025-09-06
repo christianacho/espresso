@@ -139,26 +139,6 @@ export default function Home() {
                 </div>
             </div>
 
-        </div>
-        <div className="page-section second-section" id="second-section">
-            <FadeInSection>
-                <div className="second-text">
-                    <h2 className="second-hook">
-                        brew structure, <br /> sip <span style={{ color: "#A67C52" }}>freedom</span>
-                    </h2>
-                    <p className="second-desc">
-                        Brew is a smart scheduler that turns your brain-dump into a plan. 
-                        It uses AI to place tasks on your calendar based on time and difficulty, 
-                        then learns from your feedback to keep everything updated and stress-free
-                    </p>
-                 </div>
-            </FadeInSection>
-            <FadeInSection>
-                <div className="dashboard-gif">
-                    <img src="/images/dashboard.gif" alt="dashboard gif"/>
-                </div>
-            </FadeInSection>
-        </div>
             <div className="page-section second-section" id="second-section">
                 <FadeInSection>
                     <h2 className="second-hook">
@@ -202,6 +182,5 @@ export default function Home() {
                 <p>Sup</p>
             </div>
         </div>
->>>>>>> 795fbd1e8f08f6ff1011294acb5c231b3f860571
     );
 }

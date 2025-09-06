@@ -1,3 +1,4 @@
+
 html,
 body {
     margin: 0;
@@ -93,60 +94,14 @@ header {
 .second-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
-    padding: 0 10vw;
-    /* display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px; */
-    /* padding: 0 15px; */
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-    gap: 40px;
-}
-
-.second-text {
-    /* flex: 0 0 60%; */
-    /* display: flex;
-    flex-direction: column; */
-    flex: 0 0 50%;
+    align-items: flex-start;
+    padding: 6.5vh;
+    transition: background 0.8s ease;
 }
 
 .second-hook {
-    font-size: 80px;
-    text-align: left;
-    line-height: 0.9;
-    margin-bottom: 20px;
-}
-
-.second-desc {
-    font-size: 20px;
-    text-align: left;
-    max-width: 100%;
-}
-
-.dashboard-gif {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.dashboard-img {
-    /* max-width: 200px; */
-    width: 10%;
-    height: auto;
-    object-fit: contain;
-}
-
-.third-section {
-    background: linear-gradient(180deg, #F5EDE3, #D4BCA3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 32px 2%;
-    /* transition: background 0.8s ease; */
+    font-size: 50px;
 }
 
 .third-section {
@@ -291,7 +246,7 @@ header {
 }
 
 .third-main {
-    font-size: 130px;
+    font-size: 100px;
     font-weight: 600;
     color: white;
     line-height: 1.2;
@@ -299,6 +254,7 @@ header {
     margin-top: 0px;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     transition: all 0.6s ease;
+    white-space: nowrap;
 }
 
 .third-extra {
@@ -316,13 +272,14 @@ header {
 
 .third-casual {
     margin-top: 0px;
-    font-size: 130px;
+    font-size: 100px;
     font-weight: 600;
     color: white;
     text-align: right;
     line-height: 1.2;
     font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     transition: all 0.6s ease;
+    white-space: nowrap;
 }
 
 .deadline-text,
@@ -338,7 +295,6 @@ header {
     transition: all 0.4s ease;
 }
 
-/* MASKED state shows the GIF */
 .deadline-text.masked {
     color: transparent;
     background-image: url("/images/officemoving.gif");
