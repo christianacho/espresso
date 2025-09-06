@@ -150,7 +150,7 @@ export default function Home() {
                         <p className="second-desc">
                             Brew is a smart scheduler that turns your brain-dump into a plan. 
                             It uses AI to place tasks on your calendar based on time and difficulty, 
-                            then learns from your feedback to keep everything updated and stress-free
+                            then learns from your feedback to keep everything updated and stress-free.
                         </p>
                     </div>
                 </FadeInSection>
