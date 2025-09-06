@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { ReactNode } from "react";
 import { Link } from 'react-router-dom';
 import SidebarDots from './Sidebar';
+import Navbar from "./Navbar";
 import '../style/Home.css';
 
 function FadeInSection({ children }: { children: ReactNode }) {
@@ -158,11 +159,9 @@ export default function Home() {
         const words = ['deadline', 'bills', 'groceries', 'project', 'birthdays', 'appointment'];
         let currentIndex = 0;
 
-        // Initialize with the first word immediately
         setActiveWord(words[currentIndex]);
 
         const timer = setInterval(() => {
-            // Move to next word in sequence
             currentIndex = (currentIndex + 1) % words.length;
             setActiveWord(words[currentIndex]);
         }, 1500);
@@ -176,10 +175,11 @@ export default function Home() {
         <div className="page-wrapper">
             <SidebarDots />
             <div className="page-section home-container" id="first-section">
+                <Navbar />
                 <div className="login-link">
-                    <Link to="/login">
+                    {/* <Link to="/login">
                         <button className="login-button">Login</button>
-                    </Link>
+                    </Link> */}
                 </div>
                 <h1 className="home-title">
                     {displayed}
@@ -189,7 +189,7 @@ export default function Home() {
                     >|</span>
                 </h1>
                 <p className={`home-subtext${showSubtext ? " visible" : ""}`}>
-                    Brew uses AI to keep your schedule flowing, even when it overflows
+                    For your flowing schedule, even when it overflows
                 </p>
                 <div
                     className={`scroll-arrow ${showArrow ? "visible" : "hidden"}`}

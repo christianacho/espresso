@@ -72,36 +72,11 @@ header {
     right: 20px;
 }
 
-.login-button {
-    background: linear-gradient(90deg, #cea984, #875709, #cea984);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    padding: 8px 16px;
-    border: none;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-}
-
-.login-button:focus {
-    outline: none;
-    border: none;
-}
-
-.login-button:hover {
-    cursor: pointer;
-    border: none;
-    opacity: 0.5;
-}
-
 .second-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
     display: flex;
     flex-direction: row;
-
-
 }
 
 .second-hook {
@@ -399,7 +374,7 @@ header {
     opacity: 0;
     transition: opacity 2s ease;
     text-align: center;
-    max-width: 600px;
+    max-width: 400px;
     line-height: 1.4;
     color: #4a4a4a;
 }
