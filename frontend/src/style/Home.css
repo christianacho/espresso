@@ -84,6 +84,11 @@ header {
     transition: opacity 0.3s ease;
 }
 
+.login-button:focus {
+    outline: none;
+    border: none;
+}
+
 .login-button:hover {
     cursor: pointer;
     border: none;
@@ -94,13 +99,49 @@ header {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
     display: flex;
-    align-items: flex-start;
-    padding: 6.5vh;
-    transition: background 0.8s ease;
+    flex-direction: row;
+
+
 }
 
 .second-hook {
-    font-size: 50px;
+    font-size: 60px;
+    text-align: left;
+    /* width: 50%; */
+    margin: 0;
+    line-height: 1.1;
+}
+
+.second-desc {
+    font-size: 20px;
+    width: 60%;
+    text-align: left;
+    margin: 0.3;
+}
+
+.second-text {
+    padding: 20vh;
+}
+
+.second-image-container {
+    width: 150%;
+    margin: 5px;
+    padding-right: 80vh;
+}
+
+.second-image-container img {
+    width: 150%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.hook-gradient {
+    background: linear-gradient(90deg, #A67C52, #ffcc88);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
 .third-section {
@@ -110,18 +151,17 @@ header {
     justify-content: center;
     min-height: 100vh;
     padding: 32px 2%;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .fourth-section {
     background: linear-gradient(180deg, #D4BCA3, #D4BCA3);
     color: #333333;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
     position: relative;
     padding: 60px 40px 80px;
 }
 
-/* Features Section Styles */
 .features-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -151,7 +191,6 @@ header {
     margin: 0 0 20px 0;
     line-height: 1.2;
     min-height: 76px;
-    /* Ensures consistent title height */
 }
 
 .feature-description {
@@ -163,7 +202,6 @@ header {
     line-height: 1.4;
     opacity: 0.9;
     min-height: 76px;
-    /* Ensures consistent description height */
 }
 
 .feature-visual {
@@ -193,7 +231,6 @@ header {
     opacity: 0.7;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1024px) {
     .features-container {
         gap: 40px;
@@ -228,13 +265,13 @@ header {
 .fifth-section {
     background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: white;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .sixth-section {
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: white;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
 }
 
 .home-title {
