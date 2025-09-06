@@ -43,6 +43,8 @@ export default function Home() {
     const cursorActive = true;
     const [showSubtext, setShowSubtext] = useState(false);
     const [showArrow, setShowArrow] = useState(true);
+    const [showMask, setShowMask] = useState(true);
+
 
 
     useEffect(() => {
@@ -87,6 +89,14 @@ export default function Home() {
         };
     }, []);
 
+    useEffect(() => {
+        console.log("showMask changed to:", showMask); // Add this line
+        const interval = setInterval(() => {
+            setShowMask((prev) => !prev);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
 
     return (
     <div className="page-wrapper">
@@ -125,32 +135,44 @@ export default function Home() {
         </div>
         <div className="page-section second-section" id="second-section">
             <FadeInSection>
-            <h2 className="second-hook">
-                brew structure, sip <span style={{ color: "#A67C52" }}>freedom</span>
-            </h2>
+                <div className="second-text">
+                    <h2 className="second-hook">
+                        brew structure, <br /> sip <span style={{ color: "#A67C52" }}>freedom</span>
+                    </h2>
+                    <p className="second-desc">
+                        Brew is a smart scheduler that turns your brain-dump into a plan. 
+                        It uses AI to place tasks on your calendar based on time and difficulty, 
+                        then learns from your feedback to keep everything updated and stress-free
+                    </p>
+                 </div>
+            </FadeInSection>
+            <FadeInSection>
+                <div className="dashboard-gif">
+                    <img src="/images/dashboard.gif" alt="dashboard gif"/>
+                </div>
             </FadeInSection>
         </div>
 
 
         <div className="page-section third-section" id="third-section">
             <div className="third-content">
-                <p className="third-intro">brew’s got your</p>
+            <p className="third-intro">brew’s got your</p>
 
-                <h2 className="third-main">
-                    <span className="deadline-text">DEADLINES,</span>{" "}
-                    <span className="project-text">PROJECTS,</span><br />
-                    <span className="appointment-text">APPOINTMENTS</span>
-                </h2>
+            <h2 className="third-main">
+                <span className={`deadline-text ${showMask ? "masked" : ""}`}>DEADLINES,</span>{" "}
+                <span className={`project-text ${showMask ? "masked" : ""}`}>PROJECTS,</span><br />
+                <span className={`appointment-text ${showMask ? "masked" : ""}`}>APPOINTMENTS</span>
+            </h2>
 
-                <p className="third-extra">and even</p>
+            <p className="third-extra">and even</p>
 
-                <h2 className="third-casual">
-                    <span className="bills-text">BILLS,</span>{" "}
-                    <span className="groceries-text">GROCERIES,</span>{" "}<br/>
-                    <span className="birthdays-text">BIRTHDAYS</span>
-                </h2>
+            <h2 className="third-casual">
+                <span className={`bills-text ${showMask ? "masked" : ""}`}>BILLS,</span>{" "}
+                <span className={`groceries-text ${showMask ? "masked" : ""}`}>GROCERIES,</span>{" "}<br/>
+                <span className={`birthdays-text ${showMask ? "masked" : ""}`}>BIRTHDAYS</span>
+            </h2>
             </div>
-        </div>
+      </div>
 
 
         <div className ="page-section fourth-section" id="fourth-section">
