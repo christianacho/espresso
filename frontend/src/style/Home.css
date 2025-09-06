@@ -36,40 +36,11 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-}
-
-@keyframes gradientAnimation1 {
-    0% {
-        background-position: 0% 50%
-    }
-
-    50% {
-        background-position: 100% 50%
-    }
-
-    100% {
-        background-position: 0% 50%
-    }
-}
-
-@keyframes gradientAnimation2 {
-    0% {
-        background-position: 100% 50%
-    }
-
-    50% {
-        background-position: 0% 50%
-    }
-
-    100% {
-        background-position: 100% 50%
-    }
+    transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .home-container {
-    background: linear-gradient(135deg, #F5EDE3, #D4BCA3, #F5EDE3);
-    background-size: 200% 200%;
-    animation: gradientAnimation1 8s ease infinite;
+    background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: #333333;
     position: relative;
     height: 100vh;
@@ -110,6 +81,7 @@ header {
     border: none;
     font-size: 1rem;
     text-decoration: none;
+    transition: opacity 0.3s ease;
 }
 
 .login-button:hover {
@@ -119,30 +91,44 @@ header {
 }
 
 .second-section {
-    background: white;
+    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
     display: flex;
     align-items: flex-start;
     padding: 6.5vh;
+    transition: background 0.8s ease;
 }
 
 .second-hook {
     font-size: 50px;
 }
 
+.third-section {
+    background: linear-gradient(180deg, #F5EDE3, #D4BCA3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 2%;
+    transition: background 0.8s ease;
+}
+
 .fourth-section {
-    background: #875709;
+    background: linear-gradient(180deg, #D4BCA3, #D4BCA3);
     color: white;
+    transition: background 0.8s ease;
 }
 
 .fifth-section {
-    background: #4a2e0f;
+    background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: white;
+    transition: background 0.8s ease;
 }
 
 .sixth-section {
-    background: #fff;
+    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: white;
+    transition: background 0.8s ease;
 }
 
 .home-title {
@@ -152,6 +138,7 @@ header {
     margin: 0;
     text-align: center;
     line-height: 1.2;
+    transition: all 0.6s ease;
 }
 
 .home-cursor {
@@ -169,7 +156,7 @@ header {
     margin-top: 12px;
     margin-bottom: 0;
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 2s ease;
     text-align: center;
     max-width: 800px;
     line-height: 1.4;
@@ -186,7 +173,7 @@ header {
     font-weight: 750;
     margin-top: 16px;
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity 2s ease;
     text-align: center;
     max-width: 600px;
     line-height: 1.4;
@@ -226,107 +213,148 @@ header {
 }
 
 @keyframes arrow-bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-}
 
-.third-section {
-    background-color: #d9d9d9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 32px;
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
     }
 
+    50% {
+        transform: translateX(-50%) translateY(8px);
+    }
+}
+
 .third-content {
-    padding: 35px;
-    max-width: 1000px;
+    padding: 35px 1%;
+    max-width: 95%;
     width: 100%;
+    transition: all 0.6s ease;
 }
 
 .third-intro {
-    font-size: 35px;
-    font-weight: 400;
-    color: black;
-    margin-bottom: 0px;
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #cea984, #4F200D 10%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: -20px;
     text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
 }
 
 .third-main {
-    font-size: 76px;
+    font-size: 130px;
     font-weight: 600;
     color: white;
     line-height: 1.2;
     text-align: left;
     margin-top: 0px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
 }
 
 .third-extra {
-    /* and even */
-    font-size: 35px;
-    font-weight: 400;
-    color: black;
-    margin-bottom: 0px;
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #cea984, #4F200D 90%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: -20px;
     text-align: right;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
 }
 
 .third-casual {
     margin-top: 0px;
-    font-size: 76px;
+    font-size: 130px;
     font-weight: 600;
     color: white;
     text-align: right;
     line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
 }
 
-/* Base styles for all animated words - DEFAULT STATE (white text) */
 .deadline-text,
 .appointment-text,
 .project-text,
 .bills-text,
 .groceries-text,
 .birthdays-text {
-  color: white; /* White text when NOT masked */
-  display: inline-block;
-  background-image: none; /* No background by default */
-  transition: all 0.8s ease;
+    color: white;
+    display: inline-block;
+    background-image: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.4s ease;
 }
 
-/* Base styles for all animated words - DEFAULT STATE (white text) */
-.deadline-text,
-.appointment-text,
-.project-text,
-.bills-text,
-.groceries-text,
-.birthdays-text {
-  color: white; /* White text when NOT masked */
-  display: inline-block;
-  background-image: none;
-  transition: all 0.8s ease;
-}
-
-/* MASKED state - let's test with solid colors first */
+/* MASKED state shows the GIF */
 .deadline-text.masked {
-  color: red; /* Changed to red for testing */
+    color: transparent;
+    background-image: url("/images/officemoving.gif");
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .appointment-text.masked {
-  color: blue; /* Changed to blue for testing */
+    color: transparent;
+    background-image: url("/images/bulletin.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .project-text.masked {
-  color: green; /* Changed to green for testing */
+    color: transparent;
+    background-image: url("/images/project.gif");
+    background-size: cover;
+    background-position: center 65%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .bills-text.masked {
-  color: orange; /* Changed to orange for testing */
+    color: transparent;
+    background-image: url("/images/bills.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .groceries-text.masked {
-  color: purple; /* Changed to purple for testing */
+    color: transparent;
+    background-image: url("/images/grocery.gif");
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .birthdays-text.masked {
-  color: pink; /* Changed to pink for testing */
+    color: transparent;
+    background-image: url("/images/birthdays.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
