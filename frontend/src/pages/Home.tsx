@@ -75,10 +75,7 @@ function AnimatedCounter({ end, suffix = '', duration = 2000, className }: Anima
         const animate = () => {
             const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
-
-            // Easing function for smooth animation
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-
             const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
             setCount(currentValue);
 
@@ -107,8 +104,6 @@ export default function Home() {
     const [showSubtext, setShowSubtext] = useState(false);
     const [showArrow, setShowArrow] = useState(true);
     const [activeWord, setActiveWord] = useState<string | null>(null);
-
-
 
     useEffect(() => {
         if (displayed.length < name.length) {
@@ -289,7 +284,6 @@ export default function Home() {
             <div className="page-section fifth-section" id="fifth-section">
                 <FadeInSection>
                     <div className="stats-container">
-                        {/* Left side: stats in 2x2 grid */}
                         <div className="stats-left">
                             <div className="stats-grid">
                                 <div className="stat-item">
@@ -322,7 +316,6 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* Right side: headline + description */}
                         <div className="stats-right">
                             <h2 className="stats-headline">
                                 Planning sucks,<br />
