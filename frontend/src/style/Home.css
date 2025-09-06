@@ -81,6 +81,20 @@ header {
     right: 20px;
 }
 
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20vh);
+    visibility: hidden;
+    transition: opacity 0.6s ease-out, transform 1.2s ease-out;
+    will-change: opacity, visibility;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+}
+
 .login-link {
     position: absolute;
     top: 20px;
@@ -92,28 +106,28 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    border: 1px solid #875709;
     padding: 8px 16px;
-    border-radius: 6px;
+    border: none;
     font-size: 1rem;
     text-decoration: none;
-    /* transition: background 0.2s ease; */
 }
 
 .login-button:hover {
     cursor: pointer;
-    border: 1px solid #875709;
-    opacity: 0.7;
-    /* background: rgba(255, 255, 255, 0.1); */
+    border: none;
+    opacity: 0.5;
 }
 
 .second-section {
     background: white;
     color: #333333;
+    display: flex;
+    align-items: flex-start;
+    padding: 6.5vh;
 }
 
-.third-section {
-    background: #b98e49;
+.second-hook {
+    font-size: 50px;
 }
 
 .fourth-section {
@@ -207,8 +221,8 @@ header {
 }
 
 .scroll-arrow.hidden {
-  opacity: 0;
-  pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 @keyframes arrow-bounce {
@@ -216,3 +230,103 @@ header {
     50% { transform: translateX(-50%) translateY(8px); }
 }
 
+.third-section {
+    background-color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px;
+    }
+
+.third-content {
+    padding: 35px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.third-intro {
+    font-size: 35px;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+.third-main {
+    font-size: 76px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+    text-align: left;
+    margin-top: 0px;
+}
+
+.third-extra {
+    /* and even */
+    font-size: 35px;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 0px;
+    text-align: right;
+}
+
+.third-casual {
+    margin-top: 0px;
+    font-size: 76px;
+    font-weight: 600;
+    color: white;
+    text-align: right;
+    line-height: 1.2;
+}
+
+/* Base styles for all animated words - DEFAULT STATE (white text) */
+.deadline-text,
+.appointment-text,
+.project-text,
+.bills-text,
+.groceries-text,
+.birthdays-text {
+  color: white; /* White text when NOT masked */
+  display: inline-block;
+  background-image: none; /* No background by default */
+  transition: all 0.8s ease;
+}
+
+/* Base styles for all animated words - DEFAULT STATE (white text) */
+.deadline-text,
+.appointment-text,
+.project-text,
+.bills-text,
+.groceries-text,
+.birthdays-text {
+  color: white; /* White text when NOT masked */
+  display: inline-block;
+  background-image: none;
+  transition: all 0.8s ease;
+}
+
+/* MASKED state - let's test with solid colors first */
+.deadline-text.masked {
+  color: red; /* Changed to red for testing */
+}
+
+.appointment-text.masked {
+  color: blue; /* Changed to blue for testing */
+}
+
+.project-text.masked {
+  color: green; /* Changed to green for testing */
+}
+
+.bills-text.masked {
+  color: orange; /* Changed to orange for testing */
+}
+
+.groceries-text.masked {
+  color: purple; /* Changed to purple for testing */
+}
+
+.birthdays-text.masked {
+  color: pink; /* Changed to pink for testing */
+}

@@ -1,7 +1,7 @@
 .wrapper {
     width: 420px;
     background: linear-gradient(90deg, #e5c5a4, #e7d7be, #e5c5a4);
-    border: 2px solid rbga(255, 255, 255, .2);
+    /* border: 2px solid rbga(255, 255, 255, .2); */
     backdrop-filter: blur(10px);
     box-shadow: 0 0 10px rbga(0, 0, 0, .2);
     color: #5e4220;
