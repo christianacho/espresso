@@ -30,6 +30,74 @@ function FadeInSection({ children }: { children: ReactNode }) {
     );
 }
 
+interface AnimatedCounterProps {
+    end: number;
+    suffix?: string;
+    duration?: number;
+    className?: string;
+}
+
+function AnimatedCounter({ end, suffix = '', duration = 2000, className }: AnimatedCounterProps) {
+    const [count, setCount] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+    const counterRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        if (counterRef.current) {
+            observer.observe(counterRef.current);
+        }
+
+        return () => {
+            if (counterRef.current) {
+                observer.unobserve(counterRef.current);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!isVisible) return;
+
+        const startTime = Date.now();
+        const startValue = 0;
+
+        const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Easing function for smooth animation
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+
+            const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
+            setCount(currentValue);
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                setCount(end);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    }, [isVisible, end, duration]);
+
+    return (
+        <div ref={counterRef} className={className}>
+            {count}{suffix}
+        </div>
+    );
+}
+
 export default function Home() {
     const name = "brew.ai";
     const [displayed, setDisplayed] = useState("");
@@ -148,8 +216,8 @@ export default function Home() {
                         </h2>
 
                         <p className="second-desc">
-                            Brew is a smart scheduler that turns your brain-dump into a plan. 
-                            It uses AI to place tasks on your calendar based on time and difficulty, 
+                            Brew is a smart scheduler that turns your brain-dump into a plan.
+                            It uses AI to place tasks on your calendar based on time and difficulty,
                             then learns from your feedback to keep everything updated and stress-free.
                         </p>
                     </div>
@@ -219,9 +287,57 @@ export default function Home() {
             </div>
 
             <div className="page-section fifth-section" id="fifth-section">
-                <h2>Fifth</h2>
-                <p>Sup</p>
+                <FadeInSection>
+                    <div className="stats-container">
+                        {/* Left side: stats in 2x2 grid */}
+                        <div className="stats-left">
+                            <div className="stats-grid">
+                                <div className="stat-item">
+                                    <AnimatedCounter end={82} suffix="%" className="stat-number" />
+                                    <div className="stat-text">
+                                        feel they don't manage <br />time effectively
+                                    </div>
+                                </div>
+
+                                <div className="stat-item">
+                                    <AnimatedCounter end={87} suffix="%" className="stat-number" />
+                                    <div className="stat-text">
+                                        of high performers use <br />time-blocking
+                                    </div>
+                                </div>
+
+                                <div className="stat-item">
+                                    <AnimatedCounter end={2} suffix=" hours" className="stat-number" />
+                                    <div className="stat-text">
+                                        per day are wasted due to <br />poor planning
+                                    </div>
+                                </div>
+
+                                <div className="stat-item">
+                                    <AnimatedCounter end={30} suffix="%" className="stat-number" />
+                                    <div className="stat-text">
+                                        higher task completion with <br />digital calendars
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right side: headline + description */}
+                        <div className="stats-right">
+                            <h2 className="stats-headline">
+                                Planning sucks,<br />
+                                <span className="gradient-text">let AI handle it</span>
+                            </h2>
+                            <p className="stats-description">
+                                AI can drive cars and write code-why can't it plan your day?<br />
+                                Brew takes the wheel in scheduling your plans, optimizing your time <br />so you can focus on what matters.
+                            </p>
+                        </div>
+                    </div>
+                </FadeInSection>
             </div>
+
+
 
             <div className="page-section sixth-section" id="sixth-section">
                 <h2>Sixth</h2>

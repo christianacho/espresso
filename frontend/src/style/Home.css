@@ -69,7 +69,6 @@ header {
 .login-link {
     position: absolute;
     top: 20px;
-    border: none;
     right: 20px;
 }
 
@@ -85,15 +84,15 @@ header {
     transition: opacity 0.3s ease;
 }
 
+.login-button:focus {
+    outline: none;
+    border: none;
+}
+
 .login-button:hover {
     cursor: pointer;
     border: none;
     opacity: 0.5;
-}
-
-.login-button:focus {
-    outline: none;
-    border: none;
 }
 
 .second-section {
@@ -101,6 +100,8 @@ header {
     color: #333333;
     display: flex;
     flex-direction: row;
+
+
 }
 
 .second-hook {
@@ -112,8 +113,8 @@ header {
 }
 
 .second-desc {
-    font-size: 18px;
-    width: 90%;
+    font-size: 20px;
+    width: 60%;
     text-align: left;
     margin: 0.3;
 }
@@ -269,6 +270,83 @@ header {
     background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
     color: white;
     transition: background-color 0.8s ease;
+}
+
+.stats-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.stats-left {
+    flex: 1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.stat-item {
+    margin-left: -10%;
+    text-align: left;
+    margin: 0 20% 0 0;
+
+}
+
+.stat-number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #cea984, #4F200D 50%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.3;
+    margin-bottom: 40%;
+}
+
+.stats-right {
+    flex: 1;
+    text-align: right;
+}
+
+.stats-headline {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: #333333;
+    margin: -20% -5% 20px 0;
+    line-height: 1.1;
+    text-align: right;
+}
+
+.stats-headline .gradient-text {
+    background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stats-description {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.5;
+    margin: 0 -5% 0 0;
+    text-align: right;
 }
 
 .sixth-section {
