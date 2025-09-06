@@ -37,11 +37,7 @@ export default function Home() {
     const cursorActive = true;
     const [showSubtext, setShowSubtext] = useState(false);
     const [showArrow, setShowArrow] = useState(true);
-<<<<<<< HEAD
-    const [showMask, setShowMask] = useState(true);
-=======
     const [activeWord, setActiveWord] = useState<string | null>(null);
->>>>>>> 795fbd1e8f08f6ff1011294acb5c231b3f860571
 
 
 
@@ -91,15 +87,6 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-<<<<<<< HEAD
-        console.log("showMask changed to:", showMask); // Add this line
-        const interval = setInterval(() => {
-            setShowMask((prev) => !prev);
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
-
-=======
         const words = ['deadline', 'bills', 'groceries', 'project', 'birthdays', 'appointment'];
         let currentIndex = 0;
 
@@ -116,7 +103,6 @@ export default function Home() {
             clearInterval(timer);
         };
     }, []);
->>>>>>> 795fbd1e8f08f6ff1011294acb5c231b3f860571
 
     return (
         <div className="page-wrapper">
@@ -153,7 +139,6 @@ export default function Home() {
                 </div>
             </div>
 
-<<<<<<< HEAD
         </div>
         <div className="page-section second-section" id="second-section">
             <FadeInSection>
@@ -174,7 +159,6 @@ export default function Home() {
                 </div>
             </FadeInSection>
         </div>
-=======
             <div className="page-section second-section" id="second-section">
                 <FadeInSection>
                     <h2 className="second-hook">
@@ -182,51 +166,11 @@ export default function Home() {
                     </h2>
                 </FadeInSection>
             </div>
->>>>>>> 795fbd1e8f08f6ff1011294acb5c231b3f860571
 
             <div className="page-section third-section" id="third-section">
                 <div className="third-content">
                     <p className="third-intro">brew's got your</p>
 
-<<<<<<< HEAD
-        <div className="page-section third-section" id="third-section">
-            <div className="third-content">
-            <p className="third-intro">brew’s got your</p>
-
-            <h2 className="third-main">
-                <span className={`deadline-text ${showMask ? "masked" : ""}`}>DEADLINES,</span>{" "}
-                <span className={`project-text ${showMask ? "masked" : ""}`}>PROJECTS,</span><br />
-                <span className={`appointment-text ${showMask ? "masked" : ""}`}>APPOINTMENTS</span>
-            </h2>
-
-            <p className="third-extra">and even</p>
-
-            <h2 className="third-casual">
-                <span className={`bills-text ${showMask ? "masked" : ""}`}>BILLS,</span>{" "}
-                <span className={`groceries-text ${showMask ? "masked" : ""}`}>GROCERIES,</span>{" "}<br/>
-                <span className={`birthdays-text ${showMask ? "masked" : ""}`}>BIRTHDAYS</span>
-            </h2>
-            </div>
-      </div>
-
-
-        <div className ="page-section fourth-section" id="fourth-section">
-            <h2>Third</h2>
-            <p>Sup</p>
-        </div>
-
-        <div className ="page-section fifth-section" id="fifth-section">
-            <h2>Third</h2>
-            <p>Sup</p>
-        </div>
-
-        <div className ="page-section sixth-section" id="sixth-section">
-            <h2>Third</h2>
-            <p>Sup</p>
-        </div>
-
-    </div>
-=======
                     <h2 className="third-main">
                         <span className={`deadline-text ${activeWord === 'deadline' ? "masked" : ""}`}>DEADLINES </span> · {" "}
                         <span className={`project-text ${activeWord === 'project' ? "masked" : ""}`}>PROJECTS</span><br />
