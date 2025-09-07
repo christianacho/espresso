@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { FaChevronDown } from "react-icons/fa"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 import "../style/Faq.css"
 
 export default function Faq() {
@@ -13,6 +14,7 @@ export default function Faq() {
     return (
         <div className="container">
             <Navbar />
+        <div className="faq">
             <h1 className="faq-title">Frequently Asked Questions</h1>
             <div className="accordion">
                 <div className="accordion-item">
@@ -49,8 +51,14 @@ export default function Faq() {
                     </div>
                     <hr />
                 </div>
-
             </div>
+
+            {/* <Footer /> */}
+            </div>
+            <div className="faq-footer">
+                <Footer />
+            </div>
+            
         </div>
     );
 }

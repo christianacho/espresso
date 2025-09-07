@@ -107,3 +107,7 @@ header {
 .home-hook.visible {
     opacity: 1;
 }
+
+.footer-home {
+    background: linear-gradient(180deg, #F5EDE3, #E8D5C2);
+}
