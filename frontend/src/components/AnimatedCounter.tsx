@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import type { ReactNode } from "react";
+import { useState, useEffect, useRef } from 'react'
 
 interface AnimatedCounterProps {
     end: number;

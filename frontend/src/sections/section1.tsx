@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import '../style/Section1.css'
 import '../style/Home.css'
 import Navbar from '../components/Navbar'
+import SidebarDots from '../components/Sidebar'
 
 export default function Section1() {
     const name = "brew.ai";
@@ -58,6 +59,7 @@ export default function Section1() {
 
     return (
         <div className="page-section home-container" id="first-section">
+            <SidebarDots />
             <Navbar />
             <h1 className="home-title">
                 {displayed}
