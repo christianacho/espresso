@@ -1,187 +1,188 @@
-import React, { useState, useEffect, useRef } from 'react';
-import type { ReactNode } from "react";
-import { Link } from 'react-router-dom';
-import SidebarDots from './Sidebar';
-import Navbar from "./Navbar";
-import '../style/Home.css';
+import React, { useState, useEffect, useRef } from "react"
+import type { ReactNode } from "react"
+import { Link } from "react-router-dom"
+import SidebarDots from "./Sidebar"
+import Navbar from "./Navbar"
+import { supabase } from "../../supabaseClient"
+import "../style/Home.css"
 
 function FadeInSection({ children }: { children: ReactNode }) {
-    const [showHook, setShowHook] = useState(false);
-    const domRef = useRef<HTMLDivElement | null>(null);
+    const [showHook, setShowHook] = useState(false)
+    const domRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
-        const node = domRef.current;
-        if (!node) return;
+        const node = domRef.current
+        if (!node) return
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => setShowHook(entry.isIntersecting));
-        });
+            entries.forEach((entry) => setShowHook(entry.isIntersecting))
+        })
 
-        observer.observe(node);
-        return () => observer.unobserve(node);
-    }, []);
+        observer.observe(node)
+        return () => observer.unobserve(node)
+    }, [])
 
     return (
-        <div
-            className={`fade-in-section ${showHook ? "is-visible" : ""}`}
-            ref={domRef}
-        >
+        <div className={`fade-in-section ${showHook ? "is-visible" : ""}`} ref={domRef}>
             {children}
         </div>
-    );
+    )
 }
 
 interface AnimatedCounterProps {
-    end: number;
-    suffix?: string;
-    duration?: number;
-    className?: string;
+    end: number
+    suffix?: string
+    duration?: number
+    className?: string
 }
 
-function AnimatedCounter({ end, suffix = '', duration = 2000, className }: AnimatedCounterProps) {
-    const [count, setCount] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
-    const counterRef = useRef<HTMLDivElement | null>(null);
+function AnimatedCounter({ end, suffix = "", duration = 2000, className }: AnimatedCounterProps) {
+    const [count, setCount] = useState(0)
+    const [isVisible, setIsVisible] = useState(false)
+    const counterRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setIsVisible(true);
+                        setIsVisible(true)
                     }
-                });
+                })
             },
             { threshold: 0.1 }
-        );
+        )
 
         if (counterRef.current) {
-            observer.observe(counterRef.current);
+            observer.observe(counterRef.current)
         }
 
         return () => {
             if (counterRef.current) {
-                observer.unobserve(counterRef.current);
+                observer.unobserve(counterRef.current)
             }
-        };
-    }, []);
+        }
+    }, [])
 
     useEffect(() => {
-        if (!isVisible) return;
+        if (!isVisible) return
 
-        const startTime = Date.now();
-        const startValue = 0;
+        const startTime = Date.now()
+        const startValue = 0
 
         const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
-            setCount(currentValue);
+            const elapsed = Date.now() - startTime
+            const progress = Math.min(elapsed / duration, 1)
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+            const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart)
+            setCount(currentValue)
 
             if (progress < 1) {
-                requestAnimationFrame(animate);
+                requestAnimationFrame(animate)
             } else {
-                setCount(end);
+                setCount(end)
             }
-        };
+        }
 
-        requestAnimationFrame(animate);
-    }, [isVisible, end, duration]);
+        requestAnimationFrame(animate)
+    }, [isVisible, end, duration])
 
     return (
         <div ref={counterRef} className={className}>
-            {count}{suffix}
+            {count}
+            {suffix}
         </div>
-    );
+    )
 }
 
-export default function Home() {
-    const name = "brew.ai";
-    const [displayed, setDisplayed] = useState("");
-    const [showCursor, setShowCursor] = useState(true);
-    const cursorActive = true;
-    const [showSubtext, setShowSubtext] = useState(false);
-    const [showArrow, setShowArrow] = useState(true);
-    const [activeWord, setActiveWord] = useState<string | null>(null);
+export default function Home({ session }: { session: any }) {
+    const name = "brew.ai"
+    const [displayed, setDisplayed] = useState("")
+    const [showCursor, setShowCursor] = useState(true)
+    const cursorActive = true
+    const [showSubtext, setShowSubtext] = useState(false)
+    const [showArrow, setShowArrow] = useState(true)
+    const [activeWord, setActiveWord] = useState<string | null>(null)
 
+    // typing effect
     useEffect(() => {
         if (displayed.length < name.length) {
             const timeout = setTimeout(() => {
-                setDisplayed(name.slice(0, displayed.length + 1));
-            }, 200);
-            return () => clearTimeout(timeout);
+                setDisplayed(name.slice(0, displayed.length + 1))
+            }, 200)
+            return () => clearTimeout(timeout)
         } else {
-            const subtextTimeout = setTimeout(() => setShowSubtext(true), 400);
-            return () => { clearTimeout(subtextTimeout); };
+            const subtextTimeout = setTimeout(() => setShowSubtext(true), 400)
+            return () => {
+                clearTimeout(subtextTimeout)
+            }
         }
-    }, [displayed, name]);
+    }, [displayed, name])
 
+    // blinking cursor
     useEffect(() => {
-        if (!showCursor) return;
+        if (!showCursor) return
         const cursorInterval = setInterval(() => {
-            setShowCursor((c) => !c);
-        }, 500);
-        return () => clearInterval(cursorInterval);
-    }, [cursorActive]);
+            setShowCursor((c) => !c)
+        }, 500)
+        return () => clearInterval(cursorInterval)
+    }, [cursorActive])
 
+    // arrow hide/show
     useEffect(() => {
-        const section = document.getElementById('second-section');
-        if (!section) return;
+        const section = document.getElementById("second-section")
+        if (!section) return
 
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setShowArrow(false);
+                        setShowArrow(false)
                     } else {
-                        setShowArrow(true);
+                        setShowArrow(true)
                     }
-                });
+                })
             },
             {
                 threshold: 0.1,
             }
-        );
+        )
 
-        observer.observe(section);
+        observer.observe(section)
         return () => {
-            observer.disconnect();
-        };
-    }, []);
+            observer.disconnect()
+        }
+    }, [])
 
+    // rotating words
     useEffect(() => {
-        const words = ['deadline', 'bills', 'groceries', 'project', 'birthdays', 'appointment'];
-        let currentIndex = 0;
+        const words = ["deadline", "bills", "groceries", "project", "birthdays", "appointment"]
+        let currentIndex = 0
 
-        setActiveWord(words[currentIndex]);
+        setActiveWord(words[currentIndex])
 
         const timer = setInterval(() => {
-            currentIndex = (currentIndex + 1) % words.length;
-            setActiveWord(words[currentIndex]);
-        }, 1500);
+            currentIndex = (currentIndex + 1) % words.length
+            setActiveWord(words[currentIndex])
+        }, 1500)
 
         return () => {
-            clearInterval(timer);
-        };
-    }, []);
+            clearInterval(timer)
+        }
+    }, [])
 
     return (
         <div className="page-wrapper">
             <SidebarDots />
             <div className="page-section home-container" id="first-section">
                 <Navbar />
-                <div className="login-link">
-                    {/* <Link to="/login">
-                        <button className="login-button">Login</button>
-                    </Link> */}
-                </div>
+
+
                 <h1 className="home-title">
                     {displayed}
-                    <span
-                        className="home-cursor"
-                        style={{ opacity: showCursor ? 1 : 0 }}
-                    >|</span>
+                    <span className="home-cursor" style={{ opacity: showCursor ? 1 : 0 }}>
+                        |
+                    </span>
                 </h1>
                 <p className={`home-subtext${showSubtext ? " visible" : ""}`}>
                     For your flowing schedule, even when it overflows
@@ -189,9 +190,9 @@ export default function Home() {
                 <div
                     className={`scroll-arrow ${showArrow ? "visible" : "hidden"}`}
                     onClick={() => {
-                        const section = document.getElementById("second-section");
+                        const section = document.getElementById("second-section")
                         if (section) {
-                            section.scrollIntoView({ behavior: "smooth" });
+                            section.scrollIntoView({ behavior: "smooth" })
                         }
                     }}
                     tabIndex={0}
