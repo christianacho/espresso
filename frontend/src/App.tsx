@@ -1,9 +1,10 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Faq from "./pages/Faq";
+import { Routes, Route, Navigate } from "react-router-dom"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Faq from "./pages/Faq"
+import About from "./pages/About"
 import Dashboard from "./pages/Dashboard"; // private placeholder
-import "./App.css";
+import "./App.css"
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient"; // adjust if yours is in ./lib/supabaseClient
 import type { Session } from "@supabase/supabase-js";
@@ -29,6 +30,7 @@ export default function App() {
         path="/app"
         element={session ? <Dashboard session={session} /> : <Navigate to="/login" replace />}
       />
+      <Route path="/about" element={<About />} />
     </Routes>
   );
 }

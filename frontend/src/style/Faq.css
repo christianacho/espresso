@@ -28,17 +28,18 @@ section {
 
 .faq-title {
     font-size: 3rem;
-    background: linear-gradient(90deg, #cea984, #846635, #cea984);
+    background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-align: center;
     margin-bottom: 2rem;
+    margin-top: 40rem;
 }
 
-.container {
-    width: 100%;
-    max-width: 80rem;
+.faq {
+    width: 80%;
+    /* max-width: 80rem; */
     margin: 0 auto;
     padding: 0 1.5rem;
 }
@@ -56,7 +57,7 @@ section {
 
 .accordion-link {
     font-size: 1.6rem;
-    background: linear-gradient(90deg, #cea984, #846635, #cea984);
+    background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -133,4 +134,8 @@ section {
 
 .arrow.open {
     transform: rotate(180deg);
+}
+
+.faq-footer {
+    margin-top: 7rem;
 }

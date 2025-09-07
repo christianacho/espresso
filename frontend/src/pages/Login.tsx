@@ -1,8 +1,9 @@
-import { Auth } from "@supabase/auth-ui-react";
-import type { Session } from "@supabase/supabase-js";
-import { supabase } from "../../supabaseClient"; // adjust path
-import { Navigate } from "react-router-dom";
-import "../style/auth.css";
+import { Auth } from "@supabase/auth-ui-react"
+import type { Session } from "@supabase/supabase-js"
+import { supabase } from "../../supabaseClient"
+import { Navigate } from "react-router-dom"
+import Navbar from "../components/Navbar"
+import "../style/auth.css"
 
 interface LoginProps {
     session: Session | null;
@@ -13,6 +14,7 @@ export default function Login({ session }: LoginProps) {
 
     return (
         <div className="auth-container">
+            <Navbar />
             <div className="auth-card">
                 <div className="auth-box">
                     <h1>Login</h1>
@@ -84,9 +86,9 @@ export default function Login({ session }: LoginProps) {
                                 },
                             },
                         }}
-                        providers={["google", "github"]} // ✅ KEEP Google & GitHub
+                        providers={["google", "github"]}
                         view="sign_in"
-                        showLinks={true} // ✅ Show Forgot Password + Sign Up
+                        showLinks={true}
                     />
                 </div>
             </div>

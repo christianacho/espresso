@@ -1,0 +1,145 @@
+.third-section {
+    background: linear-gradient(180deg, #F5EDE3, #D4BCA3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 2%;
+    transition: background-color 0.8s ease;
+}
+
+.third-content {
+    padding: 35px 1%;
+    max-width: 95%;
+    width: 100%;
+    transition: all 0.6s ease;
+}
+
+.third-intro {
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #cea984, #4F200D 10%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: -20px;
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
+}
+
+.third-main {
+    font-size: 100px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+    text-align: left;
+    margin-top: 0px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
+    white-space: nowrap;
+}
+
+.third-extra {
+    font-size: 50px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #cea984, #4F200D 90%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: -20px;
+    text-align: right;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
+}
+
+.third-casual {
+    margin-top: 0px;
+    font-size: 100px;
+    font-weight: 600;
+    color: white;
+    text-align: right;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.6s ease;
+    white-space: nowrap;
+}
+
+.deadline-text,
+.appointment-text,
+.project-text,
+.bills-text,
+.groceries-text,
+.birthdays-text {
+    color: white;
+    display: inline-block;
+    background-image: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    transition: all 0.4s ease;
+}
+
+.deadline-text.masked {
+    color: transparent;
+    background-image: url("/images/officemoving.gif");
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.appointment-text.masked {
+    color: transparent;
+    background-image: url("/images/bulletin.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project-text.masked {
+    color: transparent;
+    background-image: url("/images/project.gif");
+    background-size: cover;
+    background-position: center 65%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bills-text.masked {
+    color: transparent;
+    background-image: url("/images/bills.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.groceries-text.masked {
+    color: transparent;
+    background-image: url("/images/grocery.gif");
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.birthdays-text.masked {
+    color: transparent;
+    background-image: url("/images/birthdays.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

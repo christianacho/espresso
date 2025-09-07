@@ -1,0 +1,86 @@
+.home-container {
+    background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
+    color: #333333;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+    line-height: 1.2;
+    transition: all 0.6s ease;
+}
+
+.home-cursor {
+    transition: opacity 0.2s;
+    font-size: 64px;
+    vertical-align: baseline;
+    position: relative;
+    top: -5px;
+    line-height: 1.2;
+}
+
+.home-subtext {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 750;
+    margin-top: 16px;
+    opacity: 0;
+    transition: opacity 2s ease;
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.4;
+    color: #4a4a4a;
+}
+
+.home-subtext.visible {
+    opacity: 1;
+}
+
+.scroll-arrow {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #cea984, #875709, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.85;
+    animation: arrow-bounce 1.2s infinite;
+    pointer-events: auto;
+    z-index: 10;
+    user-select: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.scroll-arrow:hover {
+    cursor: pointer;
+}
+
+.scroll-arrow.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes arrow-bounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(8px);
+    }
+}
