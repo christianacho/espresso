@@ -53,7 +53,6 @@ export default function Faq() {
                 </div>
             </div>
 
-            {/* <Footer /> */}
             </div>
             <div className="faq-footer">
                 <Footer />

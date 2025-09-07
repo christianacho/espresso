@@ -12,38 +12,38 @@ export default function Footer() {
                 <div className="footer-column">
                     <h4>Features</h4>
                     <ul>
-                        <li><a href="#smart-scheduling">Smart Scheduling</a></li>
-                        <li><a href="#task-management">Task Management</a></li>
-                        <li><a href="#ai-optimization">AI Optimization</a></li>
-                        <li><a href="#calendar-sync">Calendar Sync</a></li>
+                        <li><a href="/smart-scheduling">Smart Scheduling</a></li>
+                        <li><a href="/task-management">Task Management</a></li>
+                        <li><a href="/ai-optimization">AI Optimization</a></li>
+                        <li><a href="/calendar-sync">Calendar Sync</a></li>
                     </ul>
                 </div>
 
                 <div className="footer-column">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
                     </ul>
                 </div>
 
                 <div className="footer-column">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#help">Help Center</a></li>
-                        <li><a href="#tutorials">Tutorials</a></li>
-                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/blog">Blog</a></li>
                     </ul>
                 </div>
 
                 <div className="footer-column">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#security">Security</a></li>
-                        <li><a href="#data">Data Processing</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/security">Security</a></li>
+                        <li><a href="/data">Data Processing</a></li>
                     </ul>
                 </div>
             </div>
