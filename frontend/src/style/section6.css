@@ -1,0 +1,57 @@
+.sixth-section {
+    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
+    color: white;
+    transition: background-color 0.8s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    padding: 20vh;
+    position: relative
+}
+
+.pour-gif {
+    position: absolute;
+    bottom: 10rem;
+    right: 0.8rem;
+    width: 400px;
+    height: auto;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.six-title {
+    color: #000;
+    text-align: left;
+    font-size: 60px;
+}
+
+.six-desc {
+    color: #000;
+    text-align: left;
+    font-size: 50px;
+}
+
+.sign-up {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(180deg, #d7b894, #b08968);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.35);
+    border: none;
+    border-radius: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.sign-up:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.35);
+    opacity: 0.9;
+}   
+
