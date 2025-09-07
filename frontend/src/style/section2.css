@@ -1,17 +1,27 @@
-.second-section {
+.second-image {
+    max-width: 570px;
+    border-radius: 15px;
+    margin-right: 10%;
+ }
+
+.second-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
     background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
     color: #333333;
-    display: flex;
-    flex-direction: row;
-    min-height: 80vh;
+    height: 100vh;
+    width: 100%
 }
 
 .second-hook {
     font-size: 60px;
     text-align: left;
-    /* width: 50%; */
-    margin-bottom: 15px;
     line-height: 1;
+    padding-left: 0;
+    margin-right: 0;
+    max-width: 600px;
 }
 
 .second-desc {
@@ -19,20 +29,12 @@
     width: 60%;
     text-align: left;
     margin: 0.3;
+    margin-top: 1rem;
 }
 
 .second-text {
-    padding: 20vh;
-}
-
-.second-image-container {
-    width: 150%;
-    margin: 5px;
-    padding-right: 80vh;
-}
-
-.second-image-container img {
-    width: 150%;
-    height: auto;
-    border-radius: 15px;
+    flex: 1;
+    max-width: 70%;
+    margin-left: 5%;
+    margin-right: -25%;
 }
