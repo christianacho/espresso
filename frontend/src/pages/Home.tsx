@@ -1,4 +1,3 @@
-import SidebarDots from '../components/Sidebar'
 import Footer from "../components/Footer"
 import Section1 from '../sections/section1'
 import Section2 from '../sections/section2'
@@ -11,20 +10,12 @@ import '../style/Home.css'
 export default function Home() {
     return (
         <div className="page-wrapper">
-            <SidebarDots />
-        
             <Section1 />
-            
             <Section2 />
-
-            <Section3 /> 
-
+            <Section3 />
             <Section4 />
-
             <Section5 />
-
             <Section6 />
-
             <Footer />
         </div>
     );
