@@ -83,8 +83,8 @@ header {
     font-size: 60px;
     text-align: left;
     /* width: 50%; */
-    margin: 0;
-    line-height: 1.1;
+    margin-bottom: 15px;
+    line-height: 1;
 }
 
 .second-desc {
@@ -132,12 +132,11 @@ header {
 .fourth-section {
     background: linear-gradient(180deg, #D4BCA3, #D4BCA3);
     color: #333333;
-    transition: background 0.8s ease;
+    transition: background-color 0.8s ease;
     position: relative;
     padding: 60px 40px 80px;
 }
 
-/* Features Section Styles */
 .features-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -167,7 +166,6 @@ header {
     margin: 0 0 20px 0;
     line-height: 1.2;
     min-height: 76px;
-    /* Ensures consistent title height */
 }
 
 .feature-description {
@@ -179,7 +177,6 @@ header {
     line-height: 1.4;
     opacity: 0.9;
     min-height: 76px;
-    /* Ensures consistent description height */
 }
 
 .feature-visual {
@@ -209,7 +206,6 @@ header {
     opacity: 0.7;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1024px) {
     .features-container {
         gap: 40px;
@@ -265,10 +261,8 @@ header {
 }
 
 .stat-item {
-    margin-left: -10%;
+    margin-left: 30%;
     text-align: left;
-    margin: 0 20% 0 0;
-
 }
 
 .stat-number {
@@ -302,12 +296,13 @@ header {
     font-size: 60px;
     font-weight: 700;
     color: #333333;
-    margin: -20% -5% 20px 0;
+    margin: 0% 10% 0 10%;
     line-height: 1.1;
     text-align: right;
+    margin-bottom: 2rem;
 }
 
-.stats-headline .gradient-text {
+.gradient-text {
     background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -320,14 +315,8 @@ header {
     font-weight: 400;
     color: #333333;
     line-height: 1.5;
-    margin: 0 -5% 0 0;
+    margin: 0 10% 15% 5%;
     text-align: right;
-}
-
-.sixth-section {
-    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
-    color: white;
-    transition: background-color 0.8s ease;
 }
 
 .home-title {
@@ -559,7 +548,6 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* Footer Styles */
 .footer-section {
     background: linear-gradient(180deg, #F5EDE3, #E8D5C2);
     padding: 80px 0 40px;
@@ -674,7 +662,6 @@ header {
     color: #A67C52;
 }
 
-/* Responsive Footer */
 @media (max-width: 1024px) {
     .footer-grid {
         gap: 40px;
@@ -705,3 +692,61 @@ header {
         justify-content: center;
     }
 }
+
+.sixth-section {
+    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
+    color: white;
+    transition: background-color 0.8s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    padding: 20vh;
+    position: relative
+}
+
+.pour-gif {
+    position: absolute;
+    bottom: 10rem;
+    right: 0.8rem;
+    width: 400px;
+    height: auto;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.six-title {
+    color: #000;
+    text-align: left;
+    font-size: 60px;
+}
+
+.six-desc {
+    color: #000;
+    text-align: left;
+    font-size: 50px;
+}
+
+.sign-up {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(180deg, #d7b894, #b08968);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.35);
+    border: none;
+    border-radius: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.sign-up:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.35);
+    opacity: 0.9;
+}   
+
