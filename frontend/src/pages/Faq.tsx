@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
-import Navbar from "../components/Navbar";
-import "../style/Faq.css";
+import { useState } from "react"
+import { FaChevronDown } from "react-icons/fa"
+import Navbar from "../components/Navbar"
+import "../style/Faq.css"
 
 export default function Faq() {
     const [active, setActive] = useState<string | null>(null);

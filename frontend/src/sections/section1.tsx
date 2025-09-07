@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import '../style/Section1.css';
-import '../style/Home.css';
-import Navbar from '../components/Navbar';
+import { useState, useEffect } from 'react'
+import '../style/Section1.css'
+import '../style/Home.css'
+import Navbar from '../components/Navbar'
 
 export default function Section1() {
     const name = "brew.ai";

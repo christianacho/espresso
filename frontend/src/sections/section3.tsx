@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import '../style/Home.css';
-import '../style/section3.css';
+import { useEffect, useState } from 'react'
+import '../style/Home.css'
+import '../style/section3.css'
 
 export default function Section3() {
     const [activeWord, setActiveWord] = useState<string | null>(null);
