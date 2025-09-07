@@ -1,6 +1,6 @@
-import FadeInSection from "../components/FadeInSection";
-import '../style/section4.css';
-import '../style/Home.css';
+import FadeInSection from "../components/FadeInSection"
+import '../style/section4.css'
+import '../style/Home.css'
 
 export default function Section4() {
     return (
