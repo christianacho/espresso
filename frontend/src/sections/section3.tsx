@@ -23,17 +23,17 @@ export default function Section3() {
     return (
         <div className="page-section third-section" id="third-section">
             <div className="third-content">
-                <p className="third-intro">brew's got your</p>
+                <p className="third-intro fading">brew's got your</p>
 
-                <h2 className="third-main">
+                <h2 className="third-main fading">
                     <span className={`deadline-text ${activeWord === 'deadline' ? "masked" : ""}`}>DEADLINES </span> · {" "}
                     <span className={`project-text ${activeWord === 'project' ? "masked" : ""}`}>PROJECTS</span><br />
                     <span className={`appointment-text ${activeWord === 'appointment' ? "masked" : ""}`}>APPOINTMENTS</span>
                 </h2>
 
-                <p className="third-extra">and even</p>
+                <p className="third-extra fading">and even</p>
 
-                <h2 className="third-casual">
+                <h2 className="third-casual fading">
                     <span className={`bills-text ${activeWord === 'bills' ? "masked" : ""}`}>BILLS</span> · {" "}
                     <span className={`groceries-text ${activeWord === 'groceries' ? "masked" : ""}`}>GROCERIES</span>{" "}<br />
                     <span className={`birthdays-text ${activeWord === 'birthdays' ? "masked" : ""}`}>BIRTHDAYS</span>
