@@ -1,0 +1,75 @@
+
+.fifth-section {
+    background: linear-gradient(180deg, #D4BCA3, #F5EDE3);
+    color: white;
+    transition: background-color 0.8s ease;
+}
+
+.stats-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.stats-left {
+    flex: 1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.stat-item {
+    margin-left: 30%;
+    text-align: left;
+}
+
+.stat-number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #cea984, #4F200D 50%, #cea984);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.stat-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.3;
+    margin-bottom: 40%;
+}
+
+.stats-right {
+    flex: 1;
+    text-align: right;
+}
+
+.stats-headline {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    color: #333333;
+    margin: 0% 10% 0 10%;
+    line-height: 1.1;
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+.stats-description {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.5;
+    margin: 0 10% 15% 5%;
+    text-align: right;
+}

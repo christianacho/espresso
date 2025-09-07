@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import "../style/Faq.css";
 
 export default function Faq() {
@@ -49,7 +49,7 @@ export default function Faq() {
                     </div>
                     <hr />
                 </div>
-                
+
             </div>
         </div>
     );

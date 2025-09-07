@@ -1,0 +1,38 @@
+.second-section {
+    background: linear-gradient(180deg, #F5EDE3, #F5EDE3);
+    color: #333333;
+    display: flex;
+    flex-direction: row;
+    min-height: 80vh;
+}
+
+.second-hook {
+    font-size: 60px;
+    text-align: left;
+    /* width: 50%; */
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+.second-desc {
+    font-size: 20px;
+    width: 60%;
+    text-align: left;
+    margin: 0.3;
+}
+
+.second-text {
+    padding: 20vh;
+}
+
+.second-image-container {
+    width: 150%;
+    margin: 5px;
+    padding-right: 80vh;
+}
+
+.second-image-container img {
+    width: 150%;
+    height: auto;
+    border-radius: 15px;
+}
