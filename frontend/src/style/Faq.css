@@ -28,7 +28,7 @@ section {
 
 .faq-title {
     font-size: 3rem;
-    background: linear-gradient(90deg, #cea984, #846635, #cea984);
+    background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -56,7 +56,7 @@ section {
 
 .accordion-link {
     font-size: 1.6rem;
-    background: linear-gradient(90deg, #cea984, #846635, #cea984);
+    background: linear-gradient(45deg, #cea984, #4F200D 100%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
