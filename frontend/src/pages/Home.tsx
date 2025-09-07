@@ -336,7 +336,7 @@ export default function Home() {
                     <h2 className="six-title"> Your Plans, Perfectly
                         <span className="gradient-text"> Poured </span>
                     </h2>
-                    <p className="six-desc">Start brew.ai this week</p>
+                    <p className="six-desc">Start brew.ai today</p>
                 </FadeInSection>
                 <FadeInSection>
                     <Link to="/login">
