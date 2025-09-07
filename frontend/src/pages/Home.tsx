@@ -38,56 +38,45 @@ interface AnimatedCounterProps {
     className?: string;
 }
 
-function AnimatedCounter({ end, suffix = '', duration = 2000, className }: AnimatedCounterProps) {
+function AnimatedCounter({ end, suffix = '', duration = 1500, className }: AnimatedCounterProps) {
     const [count, setCount] = useState(0);
-    const [isVisible, setIsVisible] = useState(false);
     const counterRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setIsVisible(true);
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
+    const animate = () => {
+        const start = Date.now();
 
-        if (counterRef.current) {
-            observer.observe(counterRef.current);
-        }
-
-        return () => {
-            if (counterRef.current) {
-                observer.unobserve(counterRef.current);
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isVisible) return;
-
-        const startTime = Date.now();
-        const startValue = 0;
-
-        const animate = () => {
-            const elapsed = Date.now() - startTime;
+        const tick = () => {
+            const elapsed = Date.now() - start;
             const progress = Math.min(elapsed / duration, 1);
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const currentValue = Math.floor(startValue + (end - startValue) * easeOutQuart);
-            setCount(currentValue);
+            const value = Math.floor(end * easeOutQuart);
+            setCount(value);
 
             if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                setCount(end);
+                requestAnimationFrame(tick);
             }
         };
 
-        requestAnimationFrame(animate);
-    }, [isVisible, end, duration]);
+        setCount(0);
+        requestAnimationFrame(tick);
+    };
+
+    useEffect(() => {
+        const node = counterRef.current;
+        if (!node) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    animate();
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [end, duration]);
 
     return (
         <div ref={counterRef} className={className}>
@@ -171,11 +160,6 @@ export default function Home() {
             <SidebarDots />
             <div className="page-section home-container" id="first-section">
                 <Navbar />
-                <div className="login-link">
-                    {/* <Link to="/login">
-                        <button className="login-button">Login</button>
-                    </Link> */}
-                </div>
                 <h1 className="home-title">
                     {displayed}
                     <span
@@ -301,7 +285,7 @@ export default function Home() {
                                 </div>
 
                                 <div className="stat-item">
-                                    <AnimatedCounter end={2} suffix=" hours" className="stat-number" />
+                                    <AnimatedCounter end={2} suffix=" hours" className="stat-number" duration={500} />
                                     <div className="stat-text">
                                         per day are wasted due to <br />poor planning
                                     </div>
