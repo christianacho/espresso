@@ -322,8 +322,9 @@ export default function Home() {
                                 <span className="gradient-text">let AI handle it</span>
                             </h2>
                             <p className="stats-description">
-                                AI can drive cars and write code-why can't it plan your day?<br />
-                                Brew takes the wheel in scheduling your plans, optimizing your time <br />so you can focus on what matters.
+                                AI can drive cars and write code-why can't it plan your day?
+                                Brew takes the wheel in scheduling your plans, optimizing your time 
+                                so you can focus on what matters.
                             </p>
                         </div>
                     </div>
@@ -331,12 +332,23 @@ export default function Home() {
             </div>
 
             <div className="page-section sixth-section" id="sixth-section">
-                <h2>Sixth</h2>
-                <p>Sup</p>
+                <FadeInSection>
+                    <h2 className="six-title"> Your Plans, Perfectly
+                        <span className="gradient-text"> Poured </span>
+                    </h2>
+                    <p className="six-desc">Start brew.ai this week</p>
+                </FadeInSection>
+                <FadeInSection>
+                    <Link to="/login">
+                        <button className="sign-up">Sign up</button>
+                    </Link>
+                </FadeInSection>
+                
+                <img src="/images/pour-unscreen.gif" alt="Pour animation" className="pour-gif" />
             </div>
 
             <footer className="footer-section">
-                <div className="footer-content">
+                <div className="footer-content"> 
                     <div className="footer-grid">
                         <div className="footer-brand">
                             <div className="footer-logo">brew.ai</div>
