@@ -1,0 +1,14 @@
+.logout-button {
+    background-color: transparent;
+    border: none;
+}
+
+.logout-button:focus {
+    outline: none;
+    border: none;
+}
+
+.logout-button:hover {
+    border: none;
+    color: black;
+}
