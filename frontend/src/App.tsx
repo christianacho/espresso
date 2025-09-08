@@ -11,21 +11,35 @@ import type { Session } from "@supabase/supabase-js"
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
+      setSession(s);
+      setLoading(false);
+    });
+
     return () => subscription.unsubscribe();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* If logged in, redirect root "/" straight to /dashboard */}
+      <Route path="/" element={session ? <Navigate to="/dashboard" replace /> : <Home />} />
+
       <Route path="/login" element={<Login session={session} />} />
       <Route path="/faq" element={<Faq />} />
-    
       <Route
-        path="/app"
+        path="/dashboard"
         element={session ? <Dashboard session={session} /> : <Navigate to="/login" replace />}
       />
       <Route path="/about" element={<About />} />
