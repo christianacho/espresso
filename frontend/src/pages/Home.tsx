@@ -7,6 +7,8 @@ import Section5 from '../sections/section5'
 import Section6 from '../sections/section6'
 import '../style/Home.css'
 
+
+
 export default function Home() {
     return (
         <div className="page-wrapper">

@@ -4,6 +4,8 @@ import Login from "./pages/Login"
 import Faq from "./pages/Faq"
 import About from "./pages/About"
 import Dashboard from "./pages/Dashboard"
+import ResetPassword from "./pages/ResetPassword"
+import ChangePassword from "./pages/ChangePassword"
 import "./App.css"
 import { useEffect, useState } from "react"
 import { supabase } from "../supabaseClient"
@@ -38,11 +40,22 @@ export default function App() {
 
       <Route path="/login" element={<Login session={session} />} />
       <Route path="/faq" element={<Faq />} />
+      <Route path="/about" element={<About />} />
+
+      {/* Password Reset Routes - Publicly accessible */}
+      <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Change Password Route - Requires authentication */}
+      <Route
+        path="/change-password"
+        element={session ? <ChangePassword session={session} /> : <Navigate to="/login" replace />}
+      />
+
+      {/* Dashboard - Protected route */}
       <Route
         path="/dashboard"
         element={session ? <Dashboard session={session} /> : <Navigate to="/login" replace />}
       />
-      <Route path="/about" element={<About />} />
     </Routes>
   );
 }
