@@ -1,10 +1,23 @@
 // src/pages/Dashboard.tsx
-import type { Session } from "@supabase/supabase-js";
+import type { Session } from "@supabase/supabase-js"
+import { useNavigate } from "react-router-dom"
+import { supabase } from "../../supabaseClient"
+import SignedNavBar from "../components/SignedInNav"
+import "../style/Dashboard.css"
 
 export default function Dashboard({ session }: { session: Session }) {
-    return (
-        <div className="flex items-center justify-center h-screen">
-            <h1>Welcome to your Dashboard 🚀</h1>
-        </div>
-    );
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        navigate("/");
+    };
+
+  return (
+    <div className="dash-main">
+        <SignedNavBar />
+        <h1>Dashboard</h1>
+
+    </div>
+  );
 }

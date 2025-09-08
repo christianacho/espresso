@@ -18,7 +18,7 @@
     padding: 0;
 }
 
-.navbar-links a {
+.navbar-link {
     background: linear-gradient(45deg, #cea984, #4F200D 50%, #cea984);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -30,13 +30,13 @@
     transition: opacity 0.3s ease;
 }
 
-.navbar-links a:hover {
+.navbar-link:hover {
     cursor: pointer;
     border: none;
     opacity: 0.5;
 }
 
-.navbar-links:focus {
+.navbar-link:focus {
     outline: none;
     border: none;
 }
