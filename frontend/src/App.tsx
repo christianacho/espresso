@@ -10,6 +10,8 @@ import "./App.css"
 import { useEffect, useState } from "react"
 import { supabase } from "../supabaseClient"
 import type { Session } from "@supabase/supabase-js"
+import DashboardWrapper from "./pages/DashboardWrapper"
+
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -54,7 +56,7 @@ export default function App() {
       {/* Dashboard - Protected route */}
       <Route
         path="/dashboard"
-        element={session ? <Dashboard session={session} /> : <Navigate to="/login" replace />}
+        element={session ? <DashboardWrapper session={session} /> : <Navigate to="/login" replace />}
       />
     </Routes>
   );
