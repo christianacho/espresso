@@ -198,13 +198,11 @@ export default function Login({ session }: LoginProps) {
                             </button>
                         </form>
 
-                        {/* Forgot Password Link - Only show in Sign In mode */}
                         {!isSignUp && (
                             <div>
                                 <Link
                                     to="/reset-password"
                                     className="auth-forgot-button auth-toggle-button"
-                                    style={{ textDecoration: 'none' }}
                                 >
                                     Forgot password?
                                 </Link>
@@ -238,13 +236,6 @@ export default function Login({ session }: LoginProps) {
                                 Sign in with Google
                             </button>
 
-                            <button
-                                onClick={handleGitHubSignIn}
-                                disabled={loading}
-                                className={`oauth-button ${loading ? "disabled" : ""}`}
-                            >
-                                Sign in with GitHub
-                            </button>
                         </div>
                     </div>
                 </div>
