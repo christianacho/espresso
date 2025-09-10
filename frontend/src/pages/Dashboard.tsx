@@ -9,10 +9,10 @@ import "../style/Dashboard.css"
 export default function Dashboard({
   session,
   userProfile,
-    }: {
-      session: Session;
-      userProfile?: { id: string; display_name?: string } | null;
-  }){
+}: {
+  session: Session;
+  userProfile?: { id: string; display_name?: string } | null;
+}) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showBrainDump, setShowBrainDump] = useState(false);
@@ -33,8 +33,7 @@ export default function Dashboard({
     const loadUserEvents = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5001/api/events?user_id=${session.user.id}&month=${
-            currentDate.getFullYear()
+          `http://localhost:5001/api/events?user_id=${session.user.id}&month=${currentDate.getFullYear()
           }-${String(currentDate.getMonth() + 1).padStart(2, "0")}`
         )
         if (response.ok) {
@@ -227,7 +226,7 @@ export default function Dashboard({
             <p>Smart calendar management</p>
           </div>
 
-          {/* Add Events Button */}
+          Add Events Button
           <div className="sidebar-section">
             <button
               onClick={() => setShowBrainDump(true)}
@@ -238,16 +237,16 @@ export default function Dashboard({
             </button>
           </div>
 
-          {/* Spacer */}
+          Spacer
           <div className="sidebar-spacer"></div>
 
-          {/* User Info */}
+          User Info
           <div className="sidebar-user">
             <p><p>Welcome, {userProfile?.display_name || session.user.email}</p>
-          </p>
+            </p>
           </div>
 
-          {/* Logout Button */}
+          Logout Button
           <div className="sidebar-footer">
             <button
               onClick={handleLogout}
@@ -323,15 +322,18 @@ export default function Dashboard({
                   <div className="day-number">
                     {date.getDate()}
                   </div>
-                  {dayEvents.map((event) => (
-                    <div
-                      key={event.id}
-                      onClick={() => setSelectedEvent(event)}
-                      className={`event event-${event.priority}`}
-                    >
-                      {event.title}
-                    </div>
-                  ))}
+                  <div className="event-list">
+                    {dayEvents.map((event) => (
+                      <div
+                        key={event.id}
+                        onClick={() => setSelectedEvent(event)}
+                        className={`event event-${event.priority}`}
+                      >
+                        {event.title}
+                      </div>
+                    ))}
+                  </div>
+
                 </div>
               );
             })}
