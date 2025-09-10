@@ -12,10 +12,8 @@ import re
 from supabase import create_client, Client
 import jwt
 
-# Initialize FastAPI app
 app = FastAPI(title="Calendar AI Backend", version="1.0.0")
 
-# CORS middleware to allow your React frontend to connect
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:5173"],
@@ -24,18 +22,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Security
 security = HTTPBearer(auto_error=False)
 
-# Load environment variables
 load_dotenv()
 
-# Environment variables
 SUPABASE_URL = os.getenv("VITE_SUPABASE_URL")
 SUPABASE_KEY = os.getenv("VITE_SUPABASE_ANON_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# Validate required environment variables
 if not SUPABASE_URL:
     raise ValueError("SUPABASE_URL environment variable is required")
 if not SUPABASE_KEY:
@@ -43,12 +37,8 @@ if not SUPABASE_KEY:
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable is required")
 
-# Initialize clients
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 openai.api_key = OPENAI_API_KEY
-
-# Pydantic models for request/response
-
 
 class BrainDumpRequest(BaseModel):
     brain_dump: str
@@ -74,7 +64,6 @@ class EventResponse(BaseModel):
     events: List[ProcessedEvent]
     message: str
 
-# Authentication dependency - make it optional for now
 
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
@@ -101,11 +90,11 @@ async def process_brain_dump(request: BrainDumpRequest):
     Process brain dump text and return structured events for the calendar
     """
     try:
-        print(f"🟢 Received brain dump request: {request.brain_dump[:50]}...")
+        print(f"Received brain dump request: {request.brain_dump[:50]}...")
 
         # Process the brain dump text with GPT
         processed_events = await parse_events_with_gpt(request.brain_dump)
-        print(f"🟢 GPT processed {len(processed_events)} events")
+        print(f"GPT processed {len(processed_events)} events")
 
         # Convert to the format expected by the frontend
         frontend_events = []
@@ -119,11 +108,11 @@ async def process_brain_dump(request: BrainDumpRequest):
                 "priority": event.priority
             })
 
-        print(f"🟢 Returning {len(frontend_events)} events to frontend")
+        print(f"Returning {len(frontend_events)} events to frontend")
         return frontend_events
 
     except Exception as e:
-        print(f"🔴 Error processing brain dump: {str(e)}")
+        print(f"Error processing brain dump: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error processing brain dump: {str(e)}"
@@ -135,7 +124,7 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
     Use GPT to parse the brain dump text and extract structured events
     """
     try:
-        print(f"🟡 Sending to GPT: {text[:100]}...")
+        print(f"Sending to GPT: {text[:100]}...")
 
         current_date = datetime.now()
         current_day = current_date.strftime('%A')
@@ -273,7 +262,7 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
 
         # Parse the JSON response
         gpt_response = response.choices[0].message.content.strip()
-        print(f"🟡 GPT raw response: {gpt_response}")
+        print(f"GPT raw response: {gpt_response}")
 
         # Clean up the response
         json_str = gpt_response.strip()
@@ -290,14 +279,14 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
         if json_match:
             json_str = json_match.group()
 
-        print(f"🟡 Final JSON to parse: {json_str}")
+        print(f"Final JSON to parse: {json_str}")
 
         # Parse JSON
         events_data = json.loads(json_str)
 
         # Enhanced fallback logic for empty arrays
         if not events_data:
-            print("🟡 GPT returned empty array, creating smart fallback event")
+            print("GPT returned empty array, creating smart fallback event")
 
             # Analyze the text to create better fallbacks
             text_lower = text.lower()
@@ -343,12 +332,12 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
                 priority=event_data.get("priority", "medium")
             ))
 
-        print(f"🟢 Successfully processed {len(processed_events)} events")
+        print(f"Successfully processed {len(processed_events)} events")
         return processed_events
 
     except json.JSONDecodeError as e:
-        print(f"🔴 JSON parsing error: {str(e)}")
-        print(f"🔴 GPT Response: {gpt_response}")
+        print(f"JSON parsing error: {str(e)}")
+        print(f"GPT Response: {gpt_response}")
 
         # Enhanced fallback with deadline detection
         current_date = datetime.now()
@@ -387,7 +376,7 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
             return [fallback_event]
 
     except Exception as e:
-        print(f"🔴 GPT processing error: {str(e)}")
+        print(f"GPT processing error: {str(e)}")
 
         # Enhanced fallback with better error handling
         current_date = datetime.now()

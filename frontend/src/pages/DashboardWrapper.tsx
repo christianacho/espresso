@@ -1,4 +1,3 @@
-// src/pages/DashboardWrapper.tsx
 import { useState, useEffect } from 'react';
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../../supabaseClient";
@@ -22,7 +21,6 @@ export default function DashboardWrapper({ session }: { session: Session }) {
 
     const checkUserProfile = async () => {
         try {
-            // Check if user has a profile and is onboarded
             const { data: profile, error } = await supabase
                 .from('profiles')
                 .select('id, display_name, onboarded')
@@ -30,16 +28,13 @@ export default function DashboardWrapper({ session }: { session: Session }) {
                 .single();
 
             if (error && error.code !== 'PGRST116') {
-                // PGRST116 is "not found" error, which is expected for new users
                 console.error('Error fetching profile:', error);
             }
 
             if (!profile || !profile.onboarded) {
-                // New user or user hasn't completed onboarding
                 setShowWelcome(true);
                 setUserProfile(null);
             } else {
-                // Returning user
                 setUserProfile(profile);
                 setShowWelcome(false);
             }

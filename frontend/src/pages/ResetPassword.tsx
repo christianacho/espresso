@@ -31,7 +31,7 @@ export default function ResetPassword() {
                 setError(error.message);
             } else {
                 setMessage('Check your email for the password reset link!');
-                setEmail(''); // Clear the form
+                setEmail('');
             }
         } catch (err) {
             setError('An unexpected error occurred');
