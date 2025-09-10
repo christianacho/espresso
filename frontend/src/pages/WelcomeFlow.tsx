@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../../supabaseClient";
+import { useNavigate } from "react-router-dom";
+import "../style/WelcomeFlow.css"
 
 interface WelcomeFlowProps {
     session: Session;
@@ -9,16 +11,15 @@ interface WelcomeFlowProps {
 
 export default function WelcomeFlow({ session, onComplete }: WelcomeFlowProps) {
     const [name, setName] = useState('');
+    const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState<'prompt' | 'welcome' | 'complete'>('prompt');
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!name.trim()) return;
-
         setIsLoading(true);
 
         try {
-            // Save the user's name to their profile
             const { error } = await supabase
                 .from('profiles')
                 .upsert({
@@ -28,28 +29,24 @@ export default function WelcomeFlow({ session, onComplete }: WelcomeFlowProps) {
                     updated_at: new Date().toISOString()
                 });
 
-            if (error) {
-                console.error('Error saving profile:', error);
-            }
+            if (error) console.error(error);
 
-            // Transition to welcome message
             setCurrentStep('welcome');
-
-            // After showing welcome, transition to dashboard
             setTimeout(() => {
                 setCurrentStep('complete');
                 setTimeout(() => {
                     onComplete(name.trim());
+                    navigate("/dashboard");
                 }, 500);
             }, 2000);
-
         } catch (error) {
-            console.error('Error during onboarding:', error);
+            console.error(error);
             setCurrentStep('welcome');
             setTimeout(() => {
                 setCurrentStep('complete');
                 setTimeout(() => {
                     onComplete(name.trim());
+                    navigate("/dashboard");
                 }, 500);
             }, 2000);
         } finally {
@@ -69,10 +66,9 @@ export default function WelcomeFlow({ session, onComplete }: WelcomeFlowProps) {
                 <div className="welcome-container">
                     <div className="welcome-card fade-in">
                         <div className="welcome-header">
-                            <h1>Welcome to Brew.AI!</h1>
-                            <p>Let's get you set up with a personalized experience</p>
+                            <h1 className="welcome-title">Welcome to Brew.AI!</h1>
+                            <p className="welcome-word">Let's get you set up with a personalized experience</p>
                         </div>
-
                         <div className="welcome-form">
                             <div className="input-group">
                                 <label htmlFor="name" className="welcome-label">
@@ -91,7 +87,6 @@ export default function WelcomeFlow({ session, onComplete }: WelcomeFlowProps) {
                                     disabled={isLoading}
                                 />
                             </div>
-
                             <button
                                 type="button"
                                 onClick={handleSubmit}

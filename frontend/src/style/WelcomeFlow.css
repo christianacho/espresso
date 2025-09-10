@@ -84,6 +84,7 @@
 }
 
 .welcome-input {
+    color: black;
     width: 100%;
     padding: 16px 20px;
     border: 2px solid #E8D5C2;
@@ -188,6 +189,10 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.welcome-title {
+    font-size: 25px;
 }
 
 /* Mobile responsiveness */
