@@ -55,7 +55,7 @@ class ProcessedEvent(BaseModel):
     title: str
     description: str
     date: str  # YYYY-MM-DD format
-    time: str  # HH:MM format
+    time: Optional[str] = None  # HH:MM format
     priority: str
 
 
@@ -63,7 +63,6 @@ class EventResponse(BaseModel):
     success: bool
     events: List[ProcessedEvent]
     message: str
-
 
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
@@ -243,6 +242,10 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
         - Only ONE preparation event per deadline
         - Return events in chronological order
         - NO preparation events for practice/gym/church/calls/meetings!
+        - When user inputs "PRACTICE X DAY", PLACE EVENT ON CLOSEST X DAY. DO NOT PLACE IT NEXT WEEK. ONLY 
+        PLACE IT NEXT WEEK WHEN USER SPECIFIES "PRACTICE NEXT X DAY".
+        - When a user gives a specific date (such as September 12th), place the event ON THAT DAY. DO NOT place the event on current day that the user made the request on. Place it on the SPECIFIC date that the user specifically included in the prompt.
+        - If a user does not provide a specific time for a certain event, do not fill in the time. Keep it null or none.
 
         Return ONLY a valid JSON array. Make sure ALL tasks from the input are included!
         """
