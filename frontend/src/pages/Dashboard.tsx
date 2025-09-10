@@ -28,6 +28,8 @@ export default function Dashboard({
       { id: 3, title: 'Project Demo', time: '3:00 PM', description: 'Present project to stakeholders', priority: 'high' }
     ]
   });
+  const [expandedDayEvents, setExpandedDayEvents] = useState<{ date: string, events: any[] } | null>(null);
+
 
   useEffect(() => {
     const loadUserEvents = async () => {
@@ -314,16 +316,17 @@ export default function Dashboard({
               const today = isToday(date);
               const currentMonth = isCurrentMonth(date);
 
+              const visibleEvents = dayEvents.slice(0, 4); // show up to 4
+              const extraCount = dayEvents.length - visibleEvents.length;
+
               return (
                 <div
                   key={index}
                   className={`calendar-day ${today ? 'today' : ''} ${currentMonth ? 'current-month' : 'other-month'}`}
                 >
-                  <div className="day-number">
-                    {date.getDate()}
-                  </div>
+                  <div className="day-number">{date.getDate()}</div>
                   <div className="event-list">
-                    {dayEvents.map((event) => (
+                    {visibleEvents.map((event) => (
                       <div
                         key={event.id}
                         onClick={() => setSelectedEvent(event)}
@@ -332,12 +335,21 @@ export default function Dashboard({
                         {event.title}
                       </div>
                     ))}
-                  </div>
 
+                    {extraCount > 0 && (
+                      <div
+                        className="more-events"
+                        onClick={() => setExpandedDayEvents({ date: dateKey, events: dayEvents })}
+                      >
+                        +{extraCount} more
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
           </div>
+
         </div>
       </div>
 
@@ -400,6 +412,41 @@ export default function Dashboard({
           </div>
         </div>
       )}
+      {/* Expanded Day Events Modal (for "+X more") */}
+      {expandedDayEvents && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-content">
+              <h3>Events on {expandedDayEvents.date}</h3>
+              <div className="expanded-events-list">
+                {expandedDayEvents.events.map((event) => (
+                  <div
+                    key={event.id}
+                    className={`event event-${event.priority}`}
+                    onClick={() => {
+                      setSelectedEvent(event);
+                      setExpandedDayEvents(null);
+                    }}
+                  >
+                    <p className="event-title">{event.title}</p>
+                    <p className="event-time">{event.time}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="modal-buttons">
+                <button
+                  onClick={() => setExpandedDayEvents(null)}
+                  className="close-button"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
