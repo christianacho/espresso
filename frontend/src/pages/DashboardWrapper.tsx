@@ -63,7 +63,6 @@ export default function DashboardWrapper({ session }: { session: Session }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'linear-gradient(180deg, #F5EDE3 0%, #E8D5C2 100%)'
             }}>
                 <div style={{
                     width: '40px',
