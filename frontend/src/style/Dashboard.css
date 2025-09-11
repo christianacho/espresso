@@ -32,10 +32,10 @@
     left: 24px;
     z-index: 50;
     background: transparent;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     border-radius: 12px;
     padding: 12px;
-    border: none;
+    /* border: #8a6036 1px solid; */
     cursor: pointer;
     transition: all 0.3s ease;
     color: white;
@@ -45,13 +45,18 @@
     transform: scale();
 }
 
+.menu-button:focus {
+    outline: none;
+    border: none;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 320px;
-    background: linear-gradient(to right, rgba(139, 69, 19, 0.7), transparent);
+    background: linear-gradient(to right, rgba(174, 124, 89, 0.7), transparent);
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
     z-index: 40;
@@ -91,9 +96,15 @@
     padding: 24px;
 }
 
+.dash-main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
 .add-events-button {
     width: 100%;
-    background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+    background: linear-gradient(135deg, #422e20 0%, #342312 100%);
     color: white;
     font-weight: 600;
     padding: 16px 24px;
@@ -108,12 +119,16 @@
     box-shadow: 0 4px 14px rgba(210, 105, 30, 0.4);
 }
 
+.side-name{
+    padding-top: 3.5px;
+    padding-left: 60px;
+}
+
 .add-events-button:hover {
-    background: linear-gradient(135deg, #CD853F 0%, #DEB887 100%);
+    background: linear-gradient(135deg, #8a6036 0%, #d99e50 100%);
     box-shadow: 0 8px 25px rgba(210, 105, 30, 0.5);
     transform: translateY(-2px);
 }
-
 .sidebar-spacer {
     flex: 1;
 }
@@ -121,7 +136,7 @@
 .sidebar-user {
     padding: 16px 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.8);
 }
 
 .sidebar-user p {
@@ -266,11 +281,8 @@
     padding: 8px;
     backdrop-filter: blur(5px);
     flex: 1;
-    /* Take up all remaining space */
     min-height: 0;
-    /* Allow grid to shrink if needed */
     overflow: visible;
-    /* Remove scroll restrictions */
 }
 
 .calendar-day {
@@ -285,7 +297,6 @@
     transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
-    /* Remove fixed height constraints to allow natural sizing */
 }
 
 .calendar-day:hover {

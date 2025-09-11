@@ -226,8 +226,7 @@ export default function Dashboard({
         <div className="sidebar-content">
           {/* Sidebar Header */}
           <div className="sidebar-header">
-            <h2>
-              <Calendar size={28} />
+            <h2 className="side-name">
               brew.ai
             </h2>
           </div>
