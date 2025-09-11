@@ -228,12 +228,9 @@ export default function Dashboard({
           <div className="sidebar-header">
             <h2>
               <Calendar size={28} />
-              Schedule AI
+              brew.ai
             </h2>
-            <p>Smart calendar management</p>
           </div>
-
-          Add Events Button
           <div className="sidebar-section">
             <button
               onClick={() => setShowBrainDump(true)}
@@ -243,17 +240,11 @@ export default function Dashboard({
               Add Events
             </button>
           </div>
-
-          Spacer
           <div className="sidebar-spacer"></div>
-
-          User Info
           <div className="sidebar-user">
             <p><p>Welcome, {userProfile?.display_name || session.user.email}</p>
             </p>
           </div>
-
-          Logout Button
           <div className="sidebar-footer">
             <button
               onClick={handleLogout}
@@ -419,43 +410,43 @@ export default function Dashboard({
       )}
       {/* Expanded Day Events Modal (for "+X more") */}
       {expandedDayEvents && (
-  <div className="modal-exp-main">
-    <div
-      className={`modal-exp ${expandedDayEvents.closing ? "closing" : ""}`}
-    >
-      <div className="modal-content-exp">
-        <h3 className="exp-title">{expandedDayEvents.date}</h3>
-        <div className="expanded-events-list">
-          {expandedDayEvents.events.map((event) => (
-            <div
-              key={event.id}
-              className={`event-exp event-${event.priority}`}
-              onClick={() => {
-                setSelectedEvent(event);
-                setExpandedDayEvents(null);
-              }}
-            >
-              <p className="event-title">{event.title}</p>
-              <p className="event-time">{event.time}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="modal-buttons">
-          <button
-            onClick={() => {
-              setExpandedDayEvents({ ...expandedDayEvents, closing: true });
-              setTimeout(() => setExpandedDayEvents(null), 250); // matches fadeOut
-            }}
-            className="close-button-exp"
+        <div className="modal-exp-main">
+          <div
+            className={`modal-exp ${expandedDayEvents.closing ? "closing" : ""}`}
           >
-            Close
-          </button>
+            <div className="modal-content-exp">
+              <h3 className="exp-title">{expandedDayEvents.date}</h3>
+              <div className="expanded-events-list">
+                {expandedDayEvents.events.map((event) => (
+                  <div
+                    key={event.id}
+                    className={`event-exp event-${event.priority}`}
+                    onClick={() => {
+                      setSelectedEvent(event);
+                      setExpandedDayEvents(null);
+                    }}
+                  >
+                    <p className="event-title">{event.title}</p>
+                    <p className="event-time">{event.time}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="modal-buttons">
+                <button
+                  onClick={() => {
+                    setExpandedDayEvents({ ...expandedDayEvents, closing: true });
+                    setTimeout(() => setExpandedDayEvents(null), 250); // matches fadeOut
+                  }}
+                  className="close-button-exp"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
 
 
     </div>

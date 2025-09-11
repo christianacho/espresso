@@ -40,6 +40,7 @@ if not OPENAI_API_KEY:
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 openai.api_key = OPENAI_API_KEY
 
+
 class BrainDumpRequest(BaseModel):
     brain_dump: str
     user_id: str
@@ -55,7 +56,7 @@ class ProcessedEvent(BaseModel):
     title: str
     description: str
     date: str  # YYYY-MM-DD format
-    time: Optional[str] = None  # HH:MM format
+    time: Optional[str] = None  # 12-hour format (e.g., "2:00 PM")
     priority: str
 
 
@@ -63,6 +64,17 @@ class EventResponse(BaseModel):
     success: bool
     events: List[ProcessedEvent]
     message: str
+
+
+def convert_to_12_hour(time_24):
+    """Helper function to convert 24-hour time to 12-hour format"""
+    if not time_24:
+        return None
+    try:
+        time_obj = datetime.strptime(time_24, "%H:%M")
+        return time_obj.strftime("%I:%M %p").lstrip('0')
+    except ValueError:
+        return time_24
 
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
@@ -125,141 +137,133 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
     try:
         print(f"Sending to GPT: {text[:100]}...")
 
+        # Get current date info
         current_date = datetime.now()
         current_day = current_date.strftime('%A')
         today = current_date.strftime('%Y-%m-%d')
+        current_weekday = current_date.weekday()  # Monday=0, Sunday=6
 
-        # Calculate weekday mapping for GPT
-        weekdays = ['Monday', 'Tuesday', 'Wednesday',
-                    'Thursday', 'Friday', 'Saturday', 'Sunday']
-        current_weekday_num = current_date.weekday()  # 0=Monday, 6=Sunday
-
-        # Calculate tomorrow
-        tomorrow = current_date + timedelta(days=1)
-
-        # Calculate next week's dates (7+ days from today)
-        days_ahead = {}
-        # Calculate next week's dates (always the following week)
-        # Calculate next week's dates (always the following week)
-        for i, day_name in enumerate(weekdays):
-            days_until = (i - current_weekday_num) % 7
-            if days_until == 0:
-                days_until = 7
-            next_week_date = current_date + \
-                timedelta(days=days_until + 7)  # force NEXT week
-            days_ahead[f"next_{day_name.lower()}"] = next_week_date.strftime(
-                '%Y-%m-%d')
-
-        # Calculate this week's remaining dates (closest upcoming, not including today)
-        for i, day_name in enumerate(weekdays):
-            days_until = (i - current_weekday_num) % 7
-            if days_until == 0:
-                days_until = 7
-            this_week_date = current_date + timedelta(days=days_until)
-            days_ahead[f"this_{day_name.lower()}"] = this_week_date.strftime(
-                '%Y-%m-%d')
-
-        # Debug print calculated dates
-        print(f"🔍 DEBUG - Today is: {current_date.strftime('%Y-%m-%d %A')}")
         print(
-            f"🔍 DEBUG - Next Wednesday: {days_ahead.get('next_wednesday', 'ERROR')}")
-        print(
-            f"🔍 DEBUG - This Wednesday: {days_ahead.get('this_wednesday', 'ERROR')}")
+            f"🔍 DEBUG - Today is: {current_date.strftime('%Y-%m-%d %A')} (weekday: {current_weekday})")
 
-        # Create enhanced prompt with PRE-CALCULATED dates
+        # Create a more precise date calculation explanation for GPT
         prompt = f"""
         You are a smart calendar assistant. Parse this text and create appropriate calendar events.
 
-        Current date: {current_date.strftime('%Y-%m-%d')} ({current_day})
+        TODAY IS: {today} which is a {current_day} (weekday number: {current_weekday} where Monday=0, Sunday=6)
         Current time: {current_date.strftime('%H:%M')}
 
         Text to parse: "{text}"
 
         STEP 1: Break down the input into individual tasks/events
         STEP 2: For each task, determine if it needs preparation or not
-        STEP 3: Use the PRE-CALCULATED dates below (DO NOT calculate dates yourself)
+        STEP 3: Calculate dates using these PRECISE RULES:
 
-        USE THESE EXACT DATES - DO NOT CALCULATE:
-        - "today" = {today}
-        - "tomorrow" = {tomorrow.strftime('%Y-%m-%d')}
-        - "next monday" = {days_ahead.get('next_monday', 'ERROR')}
-        - "next tuesday" = {days_ahead.get('next_tuesday', 'ERROR')}
-        - "next wednesday" = {days_ahead.get('next_wednesday', 'ERROR')}
-        - "next thursday" = {days_ahead.get('next_thursday', 'ERROR')}
-        - "next friday" = {days_ahead.get('next_friday', 'ERROR')}
-        - "next saturday" = {days_ahead.get('next_saturday', 'ERROR')}
-        - "next sunday" = {days_ahead.get('next_sunday', 'ERROR')}
-        - "monday" (without next) = {days_ahead.get('this_monday', 'ERROR')}
-        - "tuesday" (without next) = {days_ahead.get('this_tuesday', 'ERROR')}
-        - "wednesday" (without next) = {days_ahead.get('this_wednesday', 'ERROR')}
-        - "thursday" (without next) = {days_ahead.get('this_thursday', 'ERROR')}
-        - "friday" (without next) = {days_ahead.get('this_friday', 'ERROR')}
-        - "saturday" (without next) = {days_ahead.get('this_saturday', 'ERROR')}
-        - "sunday" (without next) = {days_ahead.get('this_sunday', 'ERROR')}
+        WEEKDAY MAPPING: Monday=0, Tuesday=1, Wednesday=2, Thursday=3, Friday=4, Saturday=5, Sunday=6
+        Today is {current_day} which is weekday {current_weekday}
 
-        CRITICAL RULES:
+        DATE CALCULATION RULES:
 
-        1. **ONLY create preparation events for WORK/ACADEMIC DEADLINES**
+        1. FOR DAYS WITHOUT "NEXT" (like "friday", "monday"):
+           - Find the NEXT upcoming occurrence of that weekday
+           - If the target weekday is LATER this week: days_to_add = target_weekday - current_weekday
+           - If the target weekday is EARLIER this week OR same day: days_to_add = (7 - current_weekday) + target_weekday
+           
+           Examples if today is wednesday (weekday 2):
+           - "friday" → Friday is weekday 4 → 4 - 2 = 2 days → {(current_date + timedelta(days=2)).strftime('%Y-%m-%d')}
+           - "monday" → Monday is weekday 0 → (7 - 2) + 0 = 5 days → {(current_date + timedelta(days=5)).strftime('%Y-%m-%d')}
+           - "wednesday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+            Examples if today is Monday (weekday 0):
+           - "Monday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+           Examples if today is Tuesday (weekday 1):
+           - "Tuesday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+           Examples if today is Thursday (weekday 3):
+           - "Thursday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+           Examples if today is Friday (weekday 4):
+           - "Friday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+           Examples if today is Saturday (weekday 5):
+           - "Saturday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+           Examples if today is Sunday (weekday 6):
+           - "Sunday" → Same day, so next week → 7 days → {(current_date + timedelta(days=7)).strftime('%Y-%m-%d')}
+
+        2. FOR DAYS WITH "NEXT" (like "next friday", "next monday"):
+           - ALWAYS go to the following week (at least 7 days)
+           - days_to_add = 7 + (target_weekday - current_weekday) if target_weekday >= current_weekday
+           - days_to_add = 7 + (7 - current_weekday) + target_weekday if target_weekday < current_weekday
+           
+           Examples if today is Wednesday (weekday 2):
+           - "next friday" → Friday is weekday 4 → 7 + (4 - 2) = 9 days → {(current_date + timedelta(days=9)).strftime('%Y-%m-%d')}
+           - "next monday" → Monday is weekday 0 → 7 + (7 - 2) + 0 = 12 days → {(current_date + timedelta(days=12)).strftime('%Y-%m-%d')}
+
+        3. FOR RELATIVE DAYS:
+           - "tomorrow" → +1 day → {(current_date + timedelta(days=1)).strftime('%Y-%m-%d')}
+           - "day after tomorrow" → +2 days → {(current_date + timedelta(days=2)).strftime('%Y-%m-%d')}
+
+        CRITICAL RULES FOR MULTIPLE ITEMS:
+
+        1. **WHEN INPUT SPECIFIES A NUMBER**: 
+           - "7 projects due friday" = Create 7 separate project events
+           - "3 assignments due monday" = Create 3 separate assignment events
+           - Each should have a unique title like "Project 1 Due", "Project 2 Due", etc.
+           - Each should have preparation events if they are work/academic deadlines
+
+        2. **ONLY create preparation events for WORK/ACADEMIC DEADLINES**
            - Words that need preparation: "due by", "deadline", "submit by", "finish by", "assignment due", "project due", "report due"
            - Create TWO events: preparation day before + deadline day
            - Both get "high" priority
 
-        2. **NEVER create preparation events for these activities:**
+        3. **NEVER create preparation events for these activities:**
            - practice, rehearsal, training, workout, gym
            - church, service, worship, meeting
            - appointments, calls, social events
            - shopping, errands, personal tasks
            - These get ONE event only on the specified day
 
-        3. **Process ALL parts of the input - don't miss any tasks!**
-
-        EXAMPLES:
-
-        Input: "practice next wednesday"
-        Output:
-        [
-          {{"title": "Practice", "description": "Regular practice session", "date": "{days_ahead.get('next_wednesday', 'ERROR')}", "time": "18:00", "priority": "medium"}}
-        ]
-
-        Input: "practice wednesday" (without "next")
-        Output:
-        [
-          {{"title": "Practice", "description": "Regular practice session", "date": "{days_ahead.get('this_wednesday', 'ERROR')}", "time": "18:00", "priority": "medium"}}
-        ]
-
-        Input: "assignment due next friday"  
-        Output:
-        [
-          {{"title": "Work on Assignment", "description": "Preparation for assignment", "date": "{(datetime.strptime(days_ahead.get('next_friday', today), '%Y-%m-%d') - timedelta(days=1)).strftime('%Y-%m-%d')}", "time": "14:00", "priority": "high"}},
-          {{"title": "Assignment Due", "description": "Assignment deadline", "date": "{days_ahead.get('next_friday', 'ERROR')}", "time": "17:00", "priority": "high"}}
-        ]
+        4. **Process ALL parts of the input - don't miss any tasks!**
 
         IMPORTANT: 
-        - Use ONLY the pre-calculated dates provided above
-        - Match the text exactly to find the right date
+        - Use the precise weekday calculation formulas above
+        - **NEVER put events on past dates**
         - Process EVERY task mentioned in the input
         - Don't duplicate events
         - Only ONE preparation event per deadline
         - Return events in chronological order
         - NO preparation events for practice/gym/church/calls/meetings!
-        - When user inputs "PRACTICE X DAY", PLACE EVENT ON CLOSEST X DAY. DO NOT PLACE IT NEXT WEEK. ONLY 
-        PLACE IT NEXT WEEK WHEN USER SPECIFIES "PRACTICE NEXT X DAY".
-        - When a user gives a specific date (such as September 12th), place the event ON THAT DAY. DO NOT place the event on current day that the user made the request on. Place it on the SPECIFIC date that the user specifically included in the prompt.
-        - If a user does not provide a specific time for a certain event, do not fill in the time. Keep it null or none.
+        - When a user gives a specific date (like "September 12th"), place the event ON THAT DATE
+        - If no specific time is provided, leave time as null
 
-        Return ONLY a valid JSON array. Make sure ALL tasks from the input are included!
+        CALCULATION VERIFICATION:
+        - Today: {current_day} (weekday {current_weekday})
+        - This Friday would be: {(current_date + timedelta(days=(4-current_weekday) if 4 > current_weekday else 7-(current_weekday-4))).strftime('%Y-%m-%d')}
+        - Next Friday would be: {(current_date + timedelta(days=7+(4-current_weekday) if 4 >= current_weekday else 7+(7-current_weekday)+4)).strftime('%Y-%m-%d')}
+
+        Return ONLY a valid JSON array with format:
+        [{{"title": "Event Title", "description": "Description", "date": "YYYY-MM-DD", "time": "HH:MM or null", "priority": "high/medium/low"}}]
+
+        TITLE EXAMPLES:
+        - For "project due friday": Title="Friday Project Due", Prep Title="Work on Friday Project"
+        - For "project due next thursday": Title="Next Thursday Project Due", Prep Title="Prepare Next Thursday Project"
+        - For "assignment due monday": Title="Monday Assignment Due", Prep Title="Work on Monday Assignment"
+
+        Make sure ALL tasks from the input are included, dates are calculated correctly, and titles are specific to each project/day!
         """
 
         response = openai.chat.completions.create(
-            model="gpt-4.1-nano",
+            model="gpt-4o-mini",  # Changed from gpt-4.1-nano which doesn't exist
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a calendar assistant that uses PRE-CALCULATED dates provided in the prompt. Do NOT calculate dates yourself - use ONLY the exact dates given in the prompt. Always return valid JSON arrays. Process ALL tasks mentioned in the input."
+                    "content": "You are a calendar assistant that calculates dates precisely based on weekday numbers. Use the exact formulas provided to calculate dates. Always return valid JSON arrays. Process ALL tasks mentioned in the input."
                 },
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.3,
+            temperature=0.1,  # Lower temperature for more consistent date calculations
             max_tokens=1500
         )
 
@@ -290,13 +294,10 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
         # Enhanced fallback logic for empty arrays
         if not events_data:
             print("GPT returned empty array, creating smart fallback event")
-
-            # Analyze the text to create better fallbacks
             text_lower = text.lower()
 
             # Only create preparation events for actual work deadlines
             if any(word in text_lower for word in ['due by', 'deadline', 'submit by', 'finish by', 'assignment due', 'project due', 'report due']):
-                # It's a work deadline - create two events
                 events_data = [
                     {
                         "title": f"Work on: {text[:25]}",
@@ -314,7 +315,6 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
                     }
                 ]
             else:
-                # Regular event - no preparation needed for practice/gym/church/calls etc.
                 events_data = [{
                     "title": text[:40] if len(text) <= 40 else text[:37] + "...",
                     "description": f"Event: {text}",
@@ -323,19 +323,35 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
                     "priority": "medium"
                 }]
 
-        # Convert to ProcessedEvent objects
+        # Convert to ProcessedEvent objects with validation
         processed_events = []
         for i, event_data in enumerate(events_data):
+            # Validate date is not in the past
+            event_date = datetime.strptime(event_data.get(
+                "date", current_date.strftime('%Y-%m-%d')), '%Y-%m-%d')
+            if event_date.date() < current_date.date():
+                print(
+                    f"Warning: Event date {event_date.date()} is in the past, moving to tomorrow")
+                event_data["date"] = (
+                    current_date + timedelta(days=1)).strftime('%Y-%m-%d')
+
+            # Convert 24-hour time to 12-hour format
+            time_24 = event_data.get("time")
+            time_12 = convert_to_12_hour(time_24)
+
             processed_events.append(ProcessedEvent(
                 id=f"gpt_{int(datetime.now().timestamp())}_{i}",
                 title=event_data.get("title", "Untitled Event"),
                 description=event_data.get("description", ""),
                 date=event_data.get("date", current_date.strftime('%Y-%m-%d')),
-                time=event_data.get("time", "10:00"),
+                time=time_12,
                 priority=event_data.get("priority", "medium")
             ))
 
         print(f"Successfully processed {len(processed_events)} events")
+        for event in processed_events:
+            print(f"  - {event.title} on {event.date} at {event.time}")
+
         return processed_events
 
     except json.JSONDecodeError as e:
@@ -346,15 +362,13 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
         current_date = datetime.now()
         text_lower = text.lower()
 
-        # Only create preparation events for actual work deadlines
         if any(word in text_lower for word in ['due by', 'deadline', 'submit by', 'finish by', 'assignment due', 'project due', 'report due']):
-            # Create deadline events
             prep_event = ProcessedEvent(
                 id=f"fallback_prep_{int(datetime.now().timestamp())}",
                 title=f"Work on: {text[:25]}",
                 description=f"Preparation for: {text}",
                 date=(current_date + timedelta(days=1)).strftime('%Y-%m-%d'),
-                time="14:00",
+                time=convert_to_12_hour("14:00"),
                 priority="high"
             )
             due_event = ProcessedEvent(
@@ -362,37 +376,33 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
                 title=f"Due: {text[:25]}",
                 description=f"Deadline: {text}",
                 date=(current_date + timedelta(days=2)).strftime('%Y-%m-%d'),
-                time="17:00",
+                time=convert_to_12_hour("17:00"),
                 priority="high"
             )
             return [prep_event, due_event]
         else:
-            # Single event fallback - no preparation for practice/gym/church etc.
             fallback_event = ProcessedEvent(
                 id=f"fallback_{int(datetime.now().timestamp())}",
                 title=text[:40] if len(text) <= 40 else text[:37] + "...",
                 description=f"Original text: {text}",
                 date=current_date.strftime('%Y-%m-%d'),
-                time="10:00",
+                time=convert_to_12_hour("10:00"),
                 priority="medium"
             )
             return [fallback_event]
 
     except Exception as e:
         print(f"GPT processing error: {str(e)}")
-
-        # Enhanced fallback with better error handling
         current_date = datetime.now()
         fallback_event = ProcessedEvent(
             id=f"error_fallback_{int(datetime.now().timestamp())}",
             title=f"Review: {text[:30]}...",
             description=f"AI processing failed. Original: {text}",
             date=current_date.strftime('%Y-%m-%d'),
-            time="10:00",
-            priority="high"  # High priority since it needs manual review
+            time=convert_to_12_hour("10:00"),
+            priority="high"
         )
         return [fallback_event]
-
 # Legacy endpoint for compatibility
 
 
