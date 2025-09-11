@@ -258,15 +258,15 @@
     width: 120px;
     background-color: white;
 }
-
+/* 
 .calendar-day:hover {
     background-color: #f9fafb;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .calendar-day.today {
-    background-color: #dbeafe;
-    border-color: #60a5fa;
+    /* background-color: #dbeafe; */
+    /* border: 2px solid #f5be91; */
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
@@ -283,6 +283,7 @@
 
 .calendar-day.today .day-number {
     color: #1e40af;
+    /* font-weight: strong; */
 }
 
 .calendar-day.other-month .day-number {
@@ -296,12 +297,15 @@
     transition: all 0.2s ease;
     font-weight: 500;
     margin-bottom: 2px;
+    border-radius: 4px;
     width: 100%;
     text-align: center;
+    color: black;
+    /* box-shadow: 0 8px 25px rgba(132, 133, 134, 0.4); */
 }
 
 .event:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 .event-list {
@@ -309,10 +313,9 @@
     overflow-y: auto;
 }
 
-
 .event-high {
     background-color: #fecaca;
-    color: #b91c1c;
+    /* color: #b91c1c; */
 }
 
 .event-high:hover {
@@ -321,16 +324,17 @@
 
 .event-medium {
     background-color: #fed7aa;
-    color: #c2410c;
+    /* color: #c2410c; */
 }
 
 .event-medium:hover {
-    background-color: #fdba74;
+    /* color: #fdba74; */
+    background-color: #f2cda5;
 }
 
 .event-low {
     background-color: #bbf7d0;
-    color: #15803d;
+    /* color: #15803d; */
 }
 
 .event-low:hover {
@@ -493,8 +497,110 @@
 
 .more-events:hover {
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.4;
+    /* background: rgb(210, 206, 206); */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
+
+/* .modal-content-exp {
+    width: 200px;
+} */
+
+.modal-exp-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 16px;
+}
+
+.modal-exp.closing {
+  animation: fadeOut 0.25s ease-in forwards;
+}
+
+.modal-exp-overlay {
+    background: white;
+}
+
+.modal-exp {
+    width: 300px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(132, 133, 134, 0.4);
+    animation: popFromDay 0.3s ease-out forwards;
+}
+
+.exp-title {
+    font-size: 18px;
+    color: #382919;
+    margin-bottom: 7px;
+}
+
+.event-exp {
+    background-color: #e7bb8c;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 3px;
+    width: 20px;
+    box-shadow: 0 8px 25px rgba(132, 133, 134, 0.4);
+    /* box-shadow: 0 8px 25px rgba(132, 133, 134, 0.4); */
+}
+
+.event-exp:hover {
+    cursor: pointer;
+    /* background-color: #b98854; */
+    color: #b98854;
+}
+
+.close-button-exp {
+    margin-top: -10%;
+    background-color: #c2a586;
+    border: none;
+}
+
+.close-button-exp:hover {
+    outline: none;
+    border: none;
+    background-color: #998269;
+    /* opacity: 0.7; */
+}
+
+.close-button-exp:focus {
+    outline: none;
+    border: none;
+}
+
+@keyframes popFromDay {
+  0% {
+    transform: scale(0.6) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.6) translateY(20px);
+    opacity: 0;
+  }
+}
+
+
+
 
 
 
