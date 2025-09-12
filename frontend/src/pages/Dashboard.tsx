@@ -4,6 +4,7 @@ import type { Session } from "@supabase/supabase-js"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "../../supabaseClient"
 import { Calendar, Menu, X, Plus, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import ThemePicker from "../components/ThemePicker"
 import "../style/Dashboard.css"
 
 export default function Dashboard({
@@ -33,6 +34,13 @@ export default function Dashboard({
     events: any[];
     closing?: boolean;
   } | null>(null);
+
+  const [themeColors, setThemeColors] = useState({
+    background: "#f5e6d3",
+    calendar: "#8B4513",
+  });
+  const [showThemePicker, setShowThemePicker] = useState(false);
+
   // const [expandedDayEvents, setExpandedDayEvents] = useState<any[] | null>(null);
   // const [eventSource, setEventSource] = useState<"calendar" | "expanded">("calendar");
 
@@ -207,13 +215,17 @@ export default function Dashboard({
 
   return (
     <div className="dash-main">
-      {/* Menu Button */}
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="menu-button"
-      >
-        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+    {/* <div
+        className="dash-main"
+        style={{ backgroundColor: themeColors.background }}
+        > */}
+        {/* Menu Button */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="menu-button"
+        >
+          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
@@ -259,7 +271,7 @@ export default function Dashboard({
       )}
 
       {/* Main Content */}
-      <div className={`main-content ${sidebarOpen ? 'content-shifted' : ''}`}>
+      <div className={`main-content ${sidebarOpen ? 'content-shifted' : ''} `}>
         {/* Calendar Header */}
         <div className="calendar-container">
           <div className="calendar-header">
@@ -269,6 +281,22 @@ export default function Dashboard({
             </h1>
 
             <div className="calendar-nav">
+
+              <button
+                onClick={() => setShowThemePicker(true)}
+                className="nav-button"
+              >
+                🎨 Theme
+              </button>
+
+              {showThemePicker && (
+                <ThemePicker
+                  initialColors={themeColors}
+                  onClose={() => setShowThemePicker(false)}
+                  onApply={(newColors) => setThemeColors(newColors)}
+                />
+              )}
+
                <button
               onClick={() => setShowBrainDump(true)}
               className="add-events-button-cal nav-button"
