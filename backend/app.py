@@ -11,6 +11,7 @@ import json
 import re
 from supabase import create_client, Client
 import jwt
+import time
 
 app = FastAPI(title="Calendar AI Backend", version="1.0.0")
 
@@ -102,9 +103,13 @@ async def process_brain_dump(request: BrainDumpRequest):
     """
     try:
         print(f"Received brain dump request: {request.brain_dump[:50]}...")
-
+        print("Starting time...")
+        start_time = time.perf_counter()
         # Process the brain dump text with GPT
         processed_events = await parse_events_with_gpt(request.brain_dump)
+        end_time = time.perf_counter()
+        elapsed = end_time - start_time
+        print(f"Brain dump process TIME in {elapsed:.2f} seconds")
         print(f"GPT processed {len(processed_events)} events")
 
         # Convert to the format expected by the frontend
@@ -142,7 +147,7 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
         current_day = current_date.strftime('%A')
         today = current_date.strftime('%Y-%m-%d')
         current_weekday = current_date.weekday()  # Monday=0, Sunday=6
-
+        
         print(
             f"🔍 DEBUG - Today is: {current_date.strftime('%Y-%m-%d %A')} (weekday: {current_weekday})")
 
@@ -205,6 +210,15 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
            - "tomorrow" → +1 day → {(current_date + timedelta(days=1)).strftime('%Y-%m-%d')}
            - "day after tomorrow" → +2 days → {(current_date + timedelta(days=2)).strftime('%Y-%m-%d')}
 
+        4. FOR DAYS WITH "UNTIL" (like "until next friday", "until October 20th")
+            - PREVIOUS RULES STILL APPLY. Calculate days as previously mentioned.
+            - if user says "until next friday" or any day of the week, create events up until AND including that day. if it was "until next saturday" it's EVERYDAY a new event UNTIL and INCLUDING NEXT saturday.
+            - if user says "until October 20th," or any specified DATE, create one event up until AND including that date. 
+            - if user says "until the end of this week" create events up until AND including the last day of the CURRENT week. treat it as if you are creating events up until AND including THIS sunday.
+            - if user says "until the end of October" or any other month, then create events up until AND including the LAST day of that month. you should know how long each month is.
+            - if user says "every monday until next friday" then ONLY create events on mondays UNTIL next friday. this logic applies if the user inputted a different day of the week instead.
+            - if user says "every monday and wednesday until October 20th" then ONLY create events on monday and wednesday UNTIL and INCLUDING October 20th. this logic applies if the user inputted a different date instead.
+
         CRITICAL RULES FOR MULTIPLE ITEMS:
 
         1. **WHEN INPUT SPECIFIES A NUMBER**: 
@@ -227,11 +241,15 @@ async def parse_events_with_gpt(text: str) -> List[ProcessedEvent]:
 
         4. **Process ALL parts of the input - don't miss any tasks!**
 
+        5. **Do NOT miss out on MULTIPLE "until" tasks. If the user includes multiple different "until" tasks, separate them and create events following the "until" rules specified earlier.**
+
+        6. **If user does not specify end date for repeating events (AKA events that include "until" and "every") create events until the end of the NEXT month. so only include current month + next month.**
+
         IMPORTANT: 
         - Use the precise weekday calculation formulas above
         - **NEVER put events on past dates**
         - Process EVERY task mentioned in the input
-        - Don't duplicate events
+        - Don't duplicate events UNLESS specified with the "UNTIL" keyword.
         - Only ONE preparation event per deadline
         - Return events in chronological order
         - NO preparation events for practice/gym/church/calls/meetings!
