@@ -47,7 +47,7 @@
 	margin-bottom: 1rem;
 	border: 1px solid rgba(139, 69, 19, 0.3);
 	border-radius: 25px;
-	font-size: 1.7rem;
+	font-size: 1.4rem;
 	background: rgba(255, 255, 255, 0.9);
 	transition: border-color 0.2s, box-shadow 0.2s;
 	box-sizing: border-box;
@@ -58,6 +58,7 @@
 .auth-box input[type="password"]:focus,
 .auth-box input[type="text"]:focus {
 	outline: none;
+	color: black;
 	border: 1px solid rgba(139, 69, 19, 0.3);
 	box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
 }

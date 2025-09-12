@@ -1,3 +1,10 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 .logout-button {
     background-color: transparent;
     border: none;
@@ -32,22 +39,24 @@
     left: 24px;
     z-index: 50;
     background: transparent;
-    /* backdrop-filter: blur(10px); */
     border-radius: 12px;
     padding: 12px;
-    /* border: #8a6036 1px solid; */
+    border: transparent 1px solid;
     cursor: pointer;
     transition: all 0.3s ease;
     color: white;
 }
 
 .menu-button:hover {
-    transform: scale();
+    outline: none;
+    border: transparent 1px solid;
 }
 
-.menu-button:focus {
+.menu-button:focus,
+.menu-button:focus-visible {
     outline: none;
-    border: none;
+    border: transparent 1px solid;
+    box-shadow: none;
 }
 
 .sidebar {
@@ -55,7 +64,7 @@
     top: 0;
     left: 0;
     height: 100vh;
-    width: 320px;
+    width: 250px;
     background: linear-gradient(to right, rgba(174, 124, 89, 0.7), transparent);
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
@@ -100,6 +109,7 @@
     display: flex;
     height: 100vh;
     width: 100%;
+    overflow: hidden;
 }
 
 .add-events-button {
@@ -158,21 +168,31 @@
     z-index: 30;
 }
 
+/* .sidebar-overlay:focus,
+.sidebar-overlay:focus-visible,
+.sidebar-overlay:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+} */
+
 .main-content {
     transition: margin-left 0.3s ease;
-    padding: 12px;
-    padding-top: 80px;
+    padding: 25px;
+    /* padding-top: 80px; */
     max-width: 100%;
     width: 100%;
-    height: calc(100vh - 80px);
+    /* height: calc(100vh - 80px); */
     /* Use full height minus top padding */
     display: flex;
+    /* flex: 1; */
     flex-direction: column;
+    overflow: hidden;
 }
 
-.content-shifted {
+/* .content-shifted {
     margin-left: 320px;
-}
+} */
 
 .calendar-container {
     background: transparent;
@@ -182,14 +202,12 @@
     padding: 32px;
     margin-bottom: 24px;
     width: 100%;
-    max-width: 95vw;
-    overflow-x: auto;
+    max-width: 100%;
+    overflow-x: hidden;
     flex: 1;
-    /* Take up remaining space */
     display: flex;
     flex-direction: column;
     min-height: 0;
-    /* Allow flexbox to shrink */
 }
 
 .calendar-header {
@@ -198,6 +216,8 @@
     justify-content: space-between;
     margin-bottom: 24px;
     flex-shrink: 0;
+    /* flex-wrap: nowrap; */
+    /* width: 100%; */
     /* Don't shrink the header */
 }
 
@@ -209,6 +229,8 @@
     align-items: center;
     gap: 12px;
     margin: 0;
+    /* white-space: nowrap; */
+    /* flex: 0 1 auto; */
 }
 
 .calendar-header h1 svg {
@@ -219,11 +241,30 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    flex: 0 0 auto;
 }
 
+.add-events-button-cal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+}
+/*
+.add-events-button-cal:hover {
+    background: rgba(195, 101, 54, 0.9);
+    outline: none;
+}
+
+.add-events-button-cal:focus {
+    outline: none;
+    border: none;
+} */
+
 .nav-button {
-    padding: 8px;
-    background: rgba(139, 69, 19, 0.8);
+    /* padding: 8px; */
+    background: rgba(152, 108, 77, 0.8);
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -233,7 +274,12 @@
 }
 
 .nav-button:hover {
-    background: rgba(160, 82, 45, 0.9);
+    background: rgba(195, 101, 54, 0.9);
+}
+
+.nav-button:focus {
+    outline: none;
+    border: none;
 }
 
 .today-button {
@@ -245,18 +291,25 @@
     cursor: pointer;
     transition: background-color 0.2s ease;
     backdrop-filter: blur(5px);
+    font-size: 12px;
 }
 
 .today-button:hover {
-    background: rgba(210, 105, 30, 0.3);
+    background: rgba(145, 73, 21, 0.3);
+}
+
+.today-button:focus {
+    outline: none;
+    border: none;
 }
 
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    gap: 4px;
+    padding: 8px;
     margin-bottom: 16px;
-    min-width: 1200px;
+    /* min-width: 1200px; */
     flex-shrink: 0;
     /* Don't shrink the weekdays */
 }
@@ -269,6 +322,11 @@
     background: rgba(139, 69, 19, 0.1);
     backdrop-filter: blur(5px);
     border-radius: 8px;
+    /* width: 100%; */
+}
+
+.whole-calendar {
+    width: 1100px;
 }
 
 .calendar-grid {
@@ -276,12 +334,13 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
     background: transparent;
-    min-width: 1200px;
+    width: 100%;
+    /* min-width: 1200px; */
     border-radius: 12px;
     padding: 8px;
     backdrop-filter: blur(5px);
     flex: 1;
-    min-height: 0;
+    /* min-height: 0; */
     overflow: visible;
 }
 
@@ -289,7 +348,7 @@
     padding-top: 6px;
     padding-left: 6px;
     padding-right: 6px;
-    min-width: 160px;
+    /* min-width: 160px; */
     background: rgba(139, 69, 19, 0.05);
     backdrop-filter: blur(8px);
     border-radius: 8px;
@@ -474,7 +533,7 @@
 
 .submit-button {
     padding: 12px 32px;
-    background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+    background: linear-gradient(135deg, #855736 0%, #D2691E 100%);
     color: white;
     font-weight: 600;
     border-radius: 12px;
@@ -660,7 +719,7 @@
         opacity: 0;
     }
 }
-
+/* 
 @media (max-width: 1400px) {
 
     .calendar-weekdays,
@@ -671,8 +730,8 @@
     .calendar-day {
         min-width: 135px;
     }
-}
-
+} */
+/* 
 @media (max-width: 1200px) {
 
     .calendar-weekdays,
@@ -683,7 +742,7 @@
     .calendar-day {
         min-width: 120px;
     }
-}
+} */
 
 @media (max-width: 768px) {
     .sidebar {
@@ -707,20 +766,25 @@
     .calendar-container {
         padding: 20px;
         max-width: 100vw;
+        /* min-height: 1200px; */
     }
 
     .calendar-weekdays,
     .calendar-grid {
         min-width: 100%;
+        min-width: unset;
+        max-width: 100%;
     }
 
     .calendar-day {
-        min-width: auto;
+        flex: 1;
+        min-width: unset;
+        /* min-width: auto; */
     }
 
     .main-content {
         padding: 8px;
-        padding-top: 80px;
+        /* padding-top: 80px; */
     }
 
     .modal-content {

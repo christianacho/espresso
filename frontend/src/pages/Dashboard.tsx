@@ -34,7 +34,7 @@ export default function Dashboard({
     closing?: boolean;
   } | null>(null);
   // const [expandedDayEvents, setExpandedDayEvents] = useState<any[] | null>(null);
-  const [eventSource, setEventSource] = useState<"calendar" | "expanded">("calendar");
+  // const [eventSource, setEventSource] = useState<"calendar" | "expanded">("calendar");
 
   useEffect(() => {
     const loadUserEvents = async () => {
@@ -64,7 +64,6 @@ export default function Dashboard({
     navigate("/");
   };
 
-  // Get calendar data for current month
   const getCalendarData = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -117,7 +116,6 @@ export default function Dashboard({
     try {
       console.log('Making fetch request...');
 
-      // Remove no-cors mode to properly handle the response
       const response = await fetch('http://localhost:5001/api/process-brain-dump', {
         method: 'POST',
         headers: {
@@ -136,7 +134,6 @@ export default function Dashboard({
         const newEvents = await response.json();
         console.log('Received events from AI:', newEvents);
 
-        // Process the events and add them to your calendar
         const newEventsMap: { [key: string]: any[] } = {};
         newEvents.forEach((event: any) => {
           if (!newEventsMap[event.date]) {
@@ -149,7 +146,6 @@ export default function Dashboard({
           });
         });
 
-        // Merge with existing events
         setEvents(prev => {
           const updated = { ...prev };
           Object.keys(newEventsMap).forEach(date => {
@@ -165,19 +161,17 @@ export default function Dashboard({
         const errorText = await response.text();
         console.error('Server error:', response.status, errorText);
 
-        // Show user-friendly error message
         alert('Sorry, there was an error processing your brain dump. Please try again.');
       }
 
     } catch (error) {
       console.error('Network/Fetch error:', error);
 
-      // Fallback: create a simple event if the request fails
       console.log('Creating fallback event...');
       const fallbackEvent = [{
         id: Date.now().toString(),
         title: `Review: ${brainDumpText.substring(0, 30)}...`,
-        date: new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow
+        date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
         time: '10:00',
         description: 'Fallback event - server unavailable',
         priority: 'medium'
@@ -231,13 +225,13 @@ export default function Dashboard({
             </h2>
           </div>
           <div className="sidebar-section">
-            <button
+            {/* <button
               onClick={() => setShowBrainDump(true)}
               className="add-events-button"
             >
               <Plus size={20} />
               Add Events
-            </button>
+            </button> */}
           </div>
           <div className="sidebar-spacer"></div>
           <div className="sidebar-user">
@@ -273,7 +267,16 @@ export default function Dashboard({
               <Calendar size={32} />
               {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
             </h1>
+
             <div className="calendar-nav">
+               <button
+              onClick={() => setShowBrainDump(true)}
+              className="add-events-button-cal nav-button"
+              >
+              <Plus size={20} />
+              Add
+              {/* Add Events */}
+            </button>
               <button
                 onClick={() => navigateMonth(-1)}
                 className="nav-button"
@@ -296,6 +299,7 @@ export default function Dashboard({
           </div>
 
           {/* Calendar Grid */}
+          <div className="whole-calendar">
           <div className="calendar-weekdays">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
               <div key={day} className="weekday">
@@ -343,6 +347,7 @@ export default function Dashboard({
                 </div>
               );
             })}
+          </div>
           </div>
 
         </div>
@@ -435,7 +440,7 @@ export default function Dashboard({
                 <button
                   onClick={() => {
                     setExpandedDayEvents({ ...expandedDayEvents, closing: true });
-                    setTimeout(() => setExpandedDayEvents(null), 250); // matches fadeOut
+                    setTimeout(() => setExpandedDayEvents(null), 250);
                   }}
                   className="close-button-exp"
                 >
