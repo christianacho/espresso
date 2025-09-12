@@ -1,0 +1,96 @@
+.theme-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.theme-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 360px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.25s ease-out;
+}
+
+.theme-modal h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+.theme-picker-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.theme-picker-section label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #444;
+}
+
+.theme-picker-section input[type="color"] {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.theme-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.theme-cancel {
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+}
+
+.theme-cancel:hover {
+    color: #000;
+}
+
+.theme-cancel:focus {
+    outline: none;
+}
+
+.theme-apply {
+    padding: 8px 16px;
+    background: #8B4513;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.theme-apply:hover {
+    background: #A0522D;
+}
+
+.theme-apply:focus {
+    outline: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}

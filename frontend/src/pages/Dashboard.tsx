@@ -4,6 +4,7 @@ import type { Session } from "@supabase/supabase-js"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "../../supabaseClient"
 import { Calendar, Menu, X, Plus, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import ThemePicker from "../components/ThemePicker"
 import "../style/Dashboard.css"
 
 export default function Dashboard({
@@ -33,6 +34,13 @@ export default function Dashboard({
     events: any[];
     closing?: boolean;
   } | null>(null);
+
+  const [themeColors, setThemeColors] = useState({
+    background: "#f5e6d3",
+    calendar: "#8B4513",
+  });
+  const [showThemePicker, setShowThemePicker] = useState(false);
+  const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
   // const [expandedDayEvents, setExpandedDayEvents] = useState<any[] | null>(null);
   // const [eventSource, setEventSource] = useState<"calendar" | "expanded">("calendar");
 
@@ -105,7 +113,7 @@ export default function Dashboard({
 
   const handleBrainDumpSubmit = async () => {
     console.log('Brain dump submit clicked!');
-
+    setIsCreatingSchedule(true);
     if (!brainDumpText.trim()) {
       console.log('No brain dump text provided');
       return;
@@ -162,7 +170,7 @@ export default function Dashboard({
         console.error('Server error:', response.status, errorText);
 
         alert('Sorry, there was an error processing your brain dump. Please try again.');
-      }
+      } 
 
     } catch (error) {
       console.error('Network/Fetch error:', error);
@@ -197,6 +205,8 @@ export default function Dashboard({
       setShowBrainDump(false);
 
       alert('Unable to connect to AI service. Created a basic reminder event instead.');
+    } finally {
+      setIsCreatingSchedule(false);
     }
   };
 
@@ -207,13 +217,17 @@ export default function Dashboard({
 
   return (
     <div className="dash-main">
-      {/* Menu Button */}
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="menu-button"
-      >
-        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+    {/* <div
+        className="dash-main"
+        style={{ backgroundColor: themeColors.background }}
+        > */}
+        {/* Menu Button */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="menu-button"
+        >
+          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
@@ -222,6 +236,7 @@ export default function Dashboard({
           <div className="sidebar-header">
             <h2 className="side-name">
               brew.ai
+              {/* <button className="side-name"> brew.ai </button> */}
             </h2>
           </div>
           <div className="sidebar-section">
@@ -259,49 +274,67 @@ export default function Dashboard({
       )}
 
       {/* Main Content */}
-      <div className={`main-content ${sidebarOpen ? 'content-shifted' : ''}`}>
+      <div className={`main-content ${sidebarOpen ? 'content-shifted' : ''} `}>
         {/* Calendar Header */}
         <div className="calendar-container">
           <div className="calendar-header">
-            <h1>
-              <Calendar size={32} />
-              {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-            </h1>
+            {/* <div className="calendar-left"> */}
+              <h1>
+                <Calendar size={32} />
+                {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+              </h1>
 
-            <div className="calendar-nav">
-               <button
-              onClick={() => setShowBrainDump(true)}
-              className="add-events-button-cal nav-button"
-              >
-              <Plus size={20} />
-              Add
-              {/* Add Events */}
-            </button>
-              <button
-                onClick={() => navigateMonth(-1)}
-                className="nav-button"
-              >
-                <ChevronLeft size={20} />
+              <div className="calendar-nav">
+
+                <button
+                  onClick={() => setShowThemePicker(true)}
+                  className="nav-button"
+                >
+                  🎨 Theme
+                </button>
+
+                {showThemePicker && (
+                  <ThemePicker
+                    initialColors={themeColors}
+                    onClose={() => setShowThemePicker(false)}
+                    onApply={(newColors) => setThemeColors(newColors)}
+                  />
+                )}
+
+                <button
+                onClick={() => setShowBrainDump(true)}
+                className="add-events-button-cal nav-button"
+                >
+                <Plus size={20} />
+                Add
+                {/* Add Events */}
               </button>
-              <button
-                onClick={() => setCurrentDate(new Date())}
-                className="today-button"
-              >
-                Today
-              </button>
-              <button
-                onClick={() => navigateMonth(1)}
-                className="nav-button"
-              >
-                <ChevronRight size={20} />
-              </button>
+                <button
+                  onClick={() => navigateMonth(-1)}
+                  className="nav-button"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  onClick={() => setCurrentDate(new Date())}
+                  className="today-button"
+                >
+                  Today
+                </button>
+                <button
+                  onClick={() => navigateMonth(1)}
+                  className="nav-button"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              {/* </div> */}
             </div>
           </div>
 
           {/* Calendar Grid */}
           <div className="whole-calendar">
           <div className="calendar-weekdays">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => (
               <div key={day} className="weekday">
                 {day}
               </div>
@@ -315,7 +348,7 @@ export default function Dashboard({
               const today = isToday(date);
               const currentMonth = isCurrentMonth(date);
 
-              const visibleEvents = dayEvents.slice(0, 4); // show up to 4
+              const visibleEvents = dayEvents.slice(0, 2); // show up to 4
               const extraCount = dayEvents.length - visibleEvents.length;
 
               return (
@@ -378,8 +411,9 @@ export default function Dashboard({
                 <button
                   onClick={handleBrainDumpSubmit}
                   className="submit-button"
+                  disabled={isCreatingSchedule}
                 >
-                  Create Schedule
+                  {isCreatingSchedule ? "Creating Schedule..." : "Create Schedule"}
                 </button>
               </div>
             </div>
